@@ -12,7 +12,8 @@ public class CompanyProfile extends HttpServlet {
 
     public void init() {
         message1 = "Company profile";
-        message2 = "{\"country\":\"US\",\"currency\":\"USD\",\"exchange\":\"NASDAQ NMS - GLOBAL MARKET\",\"finnhubIndustry\":\"Technology\",\"ipo\":\"1980-12-12\",\"logo\":\"https://finnhub.io/api/logo?symbol=AAPL\",\"marketCapitalization\":2163385,\"name\":\"Apple Inc\",\"phone\":\"14089961010.0\",\"shareOutstanding\":16687.631,\"ticker\":\"AAPL\",\"weburl\":\"https://www.apple.com/\"}";
+        DatabaseToController databaseToController = new DatabaseToController();
+        message2 = databaseToController.getInfo();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -22,7 +23,7 @@ public class CompanyProfile extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("<h1>" + message1 + "</h1>");
-        out.println(message2);
+        out.println(message2 + "<br>");
         out.println("</body></html>");
     }
 
