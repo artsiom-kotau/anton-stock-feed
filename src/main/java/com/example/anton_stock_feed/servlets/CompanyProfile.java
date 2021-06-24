@@ -1,10 +1,12 @@
 package com.example.anton_stock_feed.servlets;
 
+import com.example.anton_stock_feed.classes.CompanyProfileDAO;
+import com.example.anton_stock_feed.classes.CompanyProfileDAOFactory;
 import com.example.anton_stock_feed.classes.CompanyProfileService;
 import com.example.anton_stock_feed.classes.CompanyProfileServiceFactory;
 import com.example.anton_stock_feed.exceptions.CompanyProfileException;
 import com.example.anton_stock_feed.model.CompanyClass;
-import org.json.simple.JSONObject;
+import com.google.gson.Gson;
 
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -15,14 +17,17 @@ import java.io.PrintWriter;
 public class CompanyProfile extends HttpServlet {
     CompanyProfileServiceFactory companyProfileServiceFactory;
     CompanyProfileService companyProfileService;
-    JSONObject jsonObject;
-    String companySymbol = "AAPL";
+    CompanyProfileDAOFactory companyProfileDAOFactory;
+    CompanyProfileDAO companyProfileDAO;
+    String jsonString;
     CompanyClass companyClass;
     String partOfURL;
     String[] partsOfURL;
     String companySymbolFromURL;
 
     public void init() {
+        companyProfileDAOFactory = new CompanyProfileDAOFactory();
+        companyProfileDAO = companyProfileDAOFactory.createCompanyProfileDAO("Mock");
         companyProfileServiceFactory = new CompanyProfileServiceFactory();
         companyProfileService = companyProfileServiceFactory.createCompanyProfileService("Mock");
     }
@@ -32,23 +37,22 @@ public class CompanyProfile extends HttpServlet {
         try {
             partOfURL = request.getRequestURI();
             partsOfURL = partOfURL.split("/");
-            companySymbolFromURL = partsOfURL[partsOfURL.length-1];
+            companySymbolFromURL = partsOfURL[partsOfURL.length - 1];
 
-            companyClass = companyProfileService.getInfo(companySymbolFromURL);
-            jsonObject = new JSONObject();
-            jsonObject.put("currency", companyClass.getCurrency());
-            jsonObject.put("description", companyClass.getDescription());
-            jsonObject.put("displaysymbol", companyClass.getDisplaysymbol());
-            jsonObject.put("figi", companyClass.getFigi());
-            jsonObject.put("mic", companyClass.getMic());
-            jsonObject.put("symbol", companyClass.getSymbol());
-            jsonObject.put("type", companyClass.getType());
+            companyClass = companyProfileService.getInfo(companySymbolFromURL, companyProfileDAO);
+            Gson gson = new Gson();
+            jsonString = gson.toJson(companyClass);
         } catch (Exception e) {
             throw new CompanyProfileException(e);
         }
-
         PrintWriter out = response.getWriter();
-        out.println(jsonObject);
+
+        if (companySymbolFromURL.equals(null)) {
+            response.setStatus(404);
+        } else {
+            out.println(jsonString);
+        }
+
     }
 
     public void destroy() {
