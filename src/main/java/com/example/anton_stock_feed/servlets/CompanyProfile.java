@@ -1,11 +1,10 @@
 package com.example.anton_stock_feed.servlets;
 
-import com.example.anton_stock_feed.classes.CompanyProfileDAO;
-import com.example.anton_stock_feed.classes.CompanyProfileDAOFactory;
-import com.example.anton_stock_feed.classes.CompanyProfileService;
-import com.example.anton_stock_feed.classes.CompanyProfileServiceFactory;
-import com.example.anton_stock_feed.exceptions.CompanyProfileException;
-import com.example.anton_stock_feed.model.CompanyClass;
+import com.example.anton_stock_feed.service.CompanyProfileDAO;
+import com.example.anton_stock_feed.service.CompanyProfileDAOFactory;
+import com.example.anton_stock_feed.service.CompanyProfileService;
+import com.example.anton_stock_feed.service.CompanyProfileServiceFactory;
+import com.example.anton_stock_feed.model.Company;
 import com.google.gson.Gson;
 
 import javax.servlet.http.*;
@@ -20,10 +19,7 @@ public class CompanyProfile extends HttpServlet {
     CompanyProfileDAOFactory companyProfileDAOFactory;
     CompanyProfileDAO companyProfileDAO;
     String jsonString;
-    CompanyClass companyClass;
-    String partOfURL;
-    String[] partsOfURL;
-    String companySymbolFromURL;
+    String str;
 
     public void init() {
         companyProfileDAOFactory = new CompanyProfileDAOFactory();
@@ -33,26 +29,30 @@ public class CompanyProfile extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Company company;
+        String partOfURL;
+        String[] partsOfURL;
+        String companySymbolFromURL;
+        partOfURL = request.getRequestURI();
+        partsOfURL = partOfURL.split("/");
+        companySymbolFromURL = partsOfURL[partsOfURL.length - 1];
         response.setContentType("application/json");
         try {
-            partOfURL = request.getRequestURI();
-            partsOfURL = partOfURL.split("/");
-            companySymbolFromURL = partsOfURL[partsOfURL.length - 1];
-
-            companyClass = companyProfileService.getInfo(companySymbolFromURL, companyProfileDAO);
+            company = companyProfileService.getInfo(companySymbolFromURL, companyProfileDAO);
             Gson gson = new Gson();
-            jsonString = gson.toJson(companyClass);
+            jsonString = gson.toJson(company);
         } catch (Exception e) {
-            throw new CompanyProfileException(e);
+            response.setStatus(500);
+            response.getWriter().println(e.getMessage());
         }
         PrintWriter out = response.getWriter();
 
-        if (companySymbolFromURL.equals(null)) {
+        if (companySymbolFromURL.equals("CompanyProfile")) {
             response.setStatus(404);
+            response.getWriter().println("No such company");
         } else {
             out.println(jsonString);
         }
-
     }
 
     public void destroy() {

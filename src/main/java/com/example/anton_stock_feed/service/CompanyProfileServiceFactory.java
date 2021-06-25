@@ -1,4 +1,4 @@
-package com.example.anton_stock_feed.classes;
+package com.example.anton_stock_feed.service;
 
 public class CompanyProfileServiceFactory {
     CompanyProfileService companyProfileService;

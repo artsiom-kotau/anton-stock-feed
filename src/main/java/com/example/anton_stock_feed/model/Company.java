@@ -1,6 +1,6 @@
 package com.example.anton_stock_feed.model;
 
-public class CompanyClass {
+public class Company {
     private String currency;
     private String description;
     private String displaysymbol;
@@ -9,13 +9,13 @@ public class CompanyClass {
     private String symbol;
     private String type;
 
-    public CompanyClass (String currency,
-            String description,
-            String displaysymbol,
-            String figi,
-            String mic,
-            String symbol,
-            String type) {
+    public Company(String currency,
+                   String description,
+                   String displaysymbol,
+                   String figi,
+                   String mic,
+                   String symbol,
+                   String type) {
 
         this.currency = currency;
         this.description = description;
