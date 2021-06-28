@@ -4,5 +4,5 @@ import com.example.anton_stock_feed.model.Company;
 
 public interface CompanyProfileService {
 
-    Company getInfo(String companySymbol, CompanyProfileDAO companyProfileDAO);
+    Company getInfo(String companySymbol);
 }
