@@ -5,40 +5,40 @@ import org.postgresql.jdbc.PgConnection;
 
 import java.sql.*;
 
-public class CompanyProfileDAODatabase implements CompanyProfileDAO{
+public class CompanyProfileDAODatabase implements CompanyProfileDAO {
+
+    public CompanyProfileDAODatabase() {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("DAO exception", e);
+        }
+    }
 
     @Override
     public Company getInfo(String companySymbol) {
         Company company = null;
 
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
+        try (Connection dbConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/stockfeed",
+                "postgres",
+                "PedbbRw4");
+             Statement statement = dbConnection.createStatement()) {
 
-        }
-
-        try {
-            Connection dbConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/stockfeed",
-                    "postgres",
-                    "PedbbRw4");
-            Statement statement = dbConnection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM company_profile");
+            String sqlQuery = "SELECT * FROM company_profile WHERE symbol = '" + companySymbol + "'";
+            ResultSet rs = statement.executeQuery(sqlQuery);
             while (rs.next()) {
+                String currency = rs.getString("currency");
+                String description = rs.getString("description");
+                String displaysymbol = rs.getString("displaysymbol");
                 String symbol = rs.getString("symbol");
-                if (symbol.equals(companySymbol)) {
+                String figi = rs.getString("figi");
+                String mic = rs.getString("mic");
+                String type = rs.getString("type");
 
-                    String currency = rs.getString("currency");
-                    String description = rs.getString("description");
-                    String displaysymbol = rs.getString("displaysymbol");
-                    String figi = rs.getString("figi");
-                    String mic = rs.getString("mic");
-                    String type = rs.getString("type");
-
-                    company = new Company(currency, description, displaysymbol, figi, mic, symbol, type);
-                }
+                company = new Company(currency, description, displaysymbol, figi, mic, symbol, type);
             }
-        } catch (SQLException throwables) {
-
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return company;
     }
