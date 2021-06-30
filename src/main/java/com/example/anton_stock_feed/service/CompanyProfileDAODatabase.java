@@ -1,5 +1,6 @@
 package com.example.anton_stock_feed.service;
 
+import com.example.anton_stock_feed.exceptions.DAOException;
 import com.example.anton_stock_feed.model.Company;
 import org.postgresql.jdbc.PgConnection;
 
@@ -11,7 +12,7 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("DAO exception", e);
+            throw new DAOException(e);
         }
     }
 
@@ -22,10 +23,10 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
         try (Connection dbConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/stockfeed",
                 "postgres",
                 "PedbbRw4");
-             Statement statement = dbConnection.createStatement()) {
+             PreparedStatement preparedStatement = dbConnection.prepareStatement("SELECT * FROM company_profile WHERE symbol = ?")) {
 
-            String sqlQuery = "SELECT * FROM company_profile WHERE symbol = '" + companySymbol + "'";
-            ResultSet rs = statement.executeQuery(sqlQuery);
+            preparedStatement.setString(1, companySymbol);
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 String currency = rs.getString("currency");
                 String description = rs.getString("description");
@@ -38,7 +39,7 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
                 company = new Company(currency, description, displaysymbol, figi, mic, symbol, type);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DAOException(e);
         }
         return company;
     }
