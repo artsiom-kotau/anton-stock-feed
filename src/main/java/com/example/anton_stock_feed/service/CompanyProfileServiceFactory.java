@@ -1,11 +1,13 @@
 package com.example.anton_stock_feed.service;
 
 public class CompanyProfileServiceFactory {
-    CompanyProfileService companyProfileService;
 
-    public CompanyProfileService createCompanyProfileService(String type) {
+    public CompanyProfileService createCompanyProfileService(String type, CompanyProfileDAO companyProfileDAO) {
+        CompanyProfileService companyProfileService = null;
         if (type.equals("Mock")) {
-            companyProfileService = new CompanyProfileServiceMock();
+            companyProfileService = new CompanyProfileServiceMock(companyProfileDAO);
+        } else if (type.equals("Database")) {
+            companyProfileService = new CompanyProfileServiceDatabase(companyProfileDAO);
         }
         return companyProfileService;
     }

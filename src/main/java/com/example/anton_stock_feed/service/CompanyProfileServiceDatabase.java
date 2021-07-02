@@ -2,10 +2,10 @@ package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.model.Company;
 
-public class CompanyProfileServiceMock implements CompanyProfileService {
+public class CompanyProfileServiceDatabase implements CompanyProfileService{
     CompanyProfileDAO companyProfileDAO;
 
-    public CompanyProfileServiceMock(CompanyProfileDAO companyProfileDAO) {
+    public CompanyProfileServiceDatabase (CompanyProfileDAO companyProfileDAO) {
         this.companyProfileDAO = companyProfileDAO;
     }
 

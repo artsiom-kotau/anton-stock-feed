@@ -18,14 +18,12 @@ public class CompanyProfile extends HttpServlet {
     CompanyProfileService companyProfileService;
     CompanyProfileDAOFactory companyProfileDAOFactory;
     CompanyProfileDAO companyProfileDAO;
-    String jsonString;
-    String str;
 
     public void init() {
         companyProfileDAOFactory = new CompanyProfileDAOFactory();
-        companyProfileDAO = companyProfileDAOFactory.createCompanyProfileDAO("Mock");
+        companyProfileDAO = companyProfileDAOFactory.createCompanyProfileDAO("Database");
         companyProfileServiceFactory = new CompanyProfileServiceFactory();
-        companyProfileService = companyProfileServiceFactory.createCompanyProfileService("Mock");
+        companyProfileService = companyProfileServiceFactory.createCompanyProfileService("Database", companyProfileDAO);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -36,9 +34,10 @@ public class CompanyProfile extends HttpServlet {
         partOfURL = request.getRequestURI();
         partsOfURL = partOfURL.split("/");
         companySymbolFromURL = partsOfURL[partsOfURL.length - 1];
+        String jsonString = null;
         response.setContentType("application/json");
         try {
-            company = companyProfileService.getInfo(companySymbolFromURL, companyProfileDAO);
+            company = companyProfileService.getInfo(companySymbolFromURL);
             Gson gson = new Gson();
             jsonString = gson.toJson(company);
         } catch (Exception e) {
