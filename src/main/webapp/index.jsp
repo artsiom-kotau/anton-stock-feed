@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>JSP</title>
 </head>
 <body>
 <h1><%= "Stock feed" %>
 </h1>
 <br/>
-<a href="CompanyProfile">Company profile</a>
+<a href="company">Company profile</a>
 </body>
 </html>

@@ -12,7 +12,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "CompanyProfile", value = "/CompanyProfile")
+@WebServlet(name = "company", value = "/company")
 public class CompanyProfile extends HttpServlet {
     CompanyProfileServiceFactory companyProfileServiceFactory;
     CompanyProfileService companyProfileService;
@@ -46,7 +46,7 @@ public class CompanyProfile extends HttpServlet {
         }
         PrintWriter out = response.getWriter();
 
-        if (companySymbolFromURL.equals("CompanyProfile")) {
+        if (companySymbolFromURL.equals("company")) {
             response.setStatus(404);
             response.getWriter().println("No such company");
         } else {
