@@ -3,7 +3,22 @@ package com.example.anton_stock_feed.service;
 import com.example.anton_stock_feed.model.Company;
 
 public class CompanyProfileDAOMock implements CompanyProfileDAO{
+    private volatile static CompanyProfileDAOMock companyProfileDAOMock;
 
+    private CompanyProfileDAOMock() {
+
+    }
+
+    public static CompanyProfileDAOMock getInstance() {
+        if (companyProfileDAOMock == null) {
+            synchronized (CompanyProfileDAOMock.class) {
+                if (companyProfileDAOMock == null) {
+                    companyProfileDAOMock = new CompanyProfileDAOMock();
+                }
+            }
+        }
+        return companyProfileDAOMock;
+    }
 
     @Override
     public Company getInfo(String companySymbol) {
@@ -14,5 +29,10 @@ public class CompanyProfileDAOMock implements CompanyProfileDAO{
             company = new Company("USD", "TESLA INC", "TSLA", "BBG000N9MNX3", "XNAS", "TSLA", "Common Stock");
         }
         return company;
+    }
+
+    @Override
+    public void writeData(String data) {
+        System.out.println("DAO level " + data);
     }
 }

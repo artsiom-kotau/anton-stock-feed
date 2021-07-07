@@ -53,4 +53,17 @@ public class Company {
     public String getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "currency='" + currency + '\'' +
+                ", description='" + description + '\'' +
+                ", displaysymbol='" + displaysymbol + '\'' +
+                ", figi='" + figi + '\'' +
+                ", mic='" + mic + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

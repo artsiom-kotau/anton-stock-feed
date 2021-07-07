@@ -5,9 +5,9 @@ public class CompanyProfileServiceFactory {
     public CompanyProfileService createCompanyProfileService(String type, CompanyProfileDAO companyProfileDAO) {
         CompanyProfileService companyProfileService = null;
         if (type.equals("Mock")) {
-            companyProfileService = new CompanyProfileServiceMock(companyProfileDAO);
+            companyProfileService = CompanyProfileServiceMock.getInstance(companyProfileDAO);
         } else if (type.equals("Database")) {
-            companyProfileService = new CompanyProfileServiceDatabase(companyProfileDAO);
+            companyProfileService = CompanyProfileServiceDatabase.getInstance(companyProfileDAO);
         }
         return companyProfileService;
     }

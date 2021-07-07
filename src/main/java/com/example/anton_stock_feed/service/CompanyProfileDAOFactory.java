@@ -5,9 +5,9 @@ public class CompanyProfileDAOFactory {
     public CompanyProfileDAO createCompanyProfileDAO(String type){
         CompanyProfileDAO companyProfileDAO = null;
         if (type.equals("Mock")) {
-            companyProfileDAO = new CompanyProfileDAOMock();
+            companyProfileDAO = CompanyProfileDAOMock.getInstance();
         } else if (type.equals("Database")) {
-            companyProfileDAO = new CompanyProfileDAODatabase();
+            companyProfileDAO = CompanyProfileDAODatabase.getInstance();
         }
         return companyProfileDAO;
     }

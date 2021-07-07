@@ -7,4 +7,9 @@
         <servlet-name>company</servlet-name>
         <url-pattern>/company/*</url-pattern>
     </servlet-mapping>
+    <listener>
+        <listener-class>
+            com.example.anton_stock_feed.service.StockFeedContextListener
+        </listener-class>
+    </listener>
 </web-app>
