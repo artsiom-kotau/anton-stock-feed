@@ -58,16 +58,16 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
     }
 
     @Override
-    public void writeData(String data) {
-        Company company = null;
-        company = new Gson().fromJson(data, Company.class);
+    public void writeData(Company company) {
+//        Company company = null;
+//        company = new Gson().fromJson(data, Company.class);
 
         try (Connection dbConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/stockfeed",
                 "postgres",
                 "PedbbRw4");
-        PreparedStatement preparedStatement = dbConnection.prepareStatement(
-                "INSERT INTO company_profile (currency, description, displaysymbol, figi, mic, symbol, type)" +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+             PreparedStatement preparedStatement = dbConnection.prepareStatement(
+                     "INSERT INTO company_profile (currency, description, displaysymbol, figi, mic, symbol, type)" +
+                             "VALUES (?, ?, ?, ?, ?, ?, ?)")) {
 
             preparedStatement.setString(1, company.getCurrency());
             preparedStatement.setString(2, company.getDescription());

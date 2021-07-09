@@ -6,5 +6,5 @@ public interface CompanyProfileService {
 
     Company getInfo(String companySymbol);
 
-    void writeData(String data);
+    void writeData(Company company);
 }

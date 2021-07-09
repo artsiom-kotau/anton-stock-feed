@@ -19,7 +19,7 @@ public class StockFeedContextListener implements javax.servlet.ServletContextLis
         APIServiceFactory apiServiceFactory = new APIServiceFactory();
         APIService apiService = apiServiceFactory.createAPIService("Mock", companyProfileService);
         ses = Executors.newSingleThreadScheduledExecutor();
-        ses.scheduleWithFixedDelay(apiService, 0, 10, TimeUnit.SECONDS);
+        ses.scheduleWithFixedDelay(apiService::getInfo, 0, 10, TimeUnit.SECONDS);
     }
 
     @Override

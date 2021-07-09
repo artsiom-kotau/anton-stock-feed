@@ -2,11 +2,11 @@ package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.model.Company;
 
-public class CompanyProfileServiceDatabase implements CompanyProfileService{
+public class CompanyProfileServiceDatabase implements CompanyProfileService {
     private volatile static CompanyProfileServiceDatabase companyProfileServiceDatabase;
     CompanyProfileDAO companyProfileDAO;
 
-    private CompanyProfileServiceDatabase (CompanyProfileDAO companyProfileDAO) {
+    private CompanyProfileServiceDatabase(CompanyProfileDAO companyProfileDAO) {
         this.companyProfileDAO = companyProfileDAO;
     }
 
@@ -27,7 +27,7 @@ public class CompanyProfileServiceDatabase implements CompanyProfileService{
     }
 
     @Override
-    public void writeData(String data) {
-        companyProfileDAO.writeData(data);
+    public void writeData(Company company) {
+        companyProfileDAO.writeData(company);
     }
 }

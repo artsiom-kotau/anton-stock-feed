@@ -1,19 +1,23 @@
 package com.example.anton_stock_feed.service;
 
-public class APIServiceMock implements Runnable, APIService{
+import com.example.anton_stock_feed.model.Company;
+import com.google.gson.Gson;
+
+public class APIServiceMock implements APIService {
     CompanyProfileService companyProfileService;
 
-    public APIServiceMock (CompanyProfileService companyProfileService) {
+    public APIServiceMock(CompanyProfileService companyProfileService) {
         this.companyProfileService = companyProfileService;
     }
 
     @Override
     public void getInfo() {
         String data = "{\"currency\":\"USD\",\"description\":\"MICROSOFT CORP\",\"displaySymbol\":\"MSFT\",\"figi\":\"BBG000BPH459\",\"mic\":\"XNAS\",\"symbol\":\"MSFT\",\"type\":\"Common Stock\"}";
-        companyProfileService.writeData(data);
+        Company company = null;
+        company = new Gson().fromJson(data, Company.class);
+        companyProfileService.writeData(company);
     }
 
-    @Override
     public void run() {
         getInfo();
     }

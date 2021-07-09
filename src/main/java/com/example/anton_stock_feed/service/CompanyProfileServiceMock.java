@@ -27,7 +27,7 @@ public class CompanyProfileServiceMock implements CompanyProfileService {
     }
 
     @Override
-    public void writeData(String data) {
-        companyProfileDAO.writeData(data);
+    public void writeData(Company company) {
+        companyProfileDAO.writeData(company);
     }
 }

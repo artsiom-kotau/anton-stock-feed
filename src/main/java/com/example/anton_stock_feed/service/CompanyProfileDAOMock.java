@@ -2,7 +2,7 @@ package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.model.Company;
 
-public class CompanyProfileDAOMock implements CompanyProfileDAO{
+public class CompanyProfileDAOMock implements CompanyProfileDAO {
     private volatile static CompanyProfileDAOMock companyProfileDAOMock;
 
     private CompanyProfileDAOMock() {
@@ -32,7 +32,7 @@ public class CompanyProfileDAOMock implements CompanyProfileDAO{
     }
 
     @Override
-    public void writeData(String data) {
-        System.out.println("DAO level " + data);
+    public void writeData(Company company) {
+        System.out.println("DAO level " + company);
     }
 }
