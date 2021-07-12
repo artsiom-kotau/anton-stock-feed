@@ -32,7 +32,7 @@ public class CompanyProfileDAOMock implements CompanyProfileDAO {
     }
 
     @Override
-    public void writeData(Company company) {
-        System.out.println("DAO level " + company);
+    public void writeData(Iterable<Company> companies) {
+        System.out.println("DAO level " + companies.toString());
     }
 }

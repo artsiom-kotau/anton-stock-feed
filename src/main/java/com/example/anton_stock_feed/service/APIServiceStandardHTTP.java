@@ -3,12 +3,16 @@ package com.example.anton_stock_feed.service;
 import com.example.anton_stock_feed.exceptions.APIServiceException;
 import com.example.anton_stock_feed.model.Company;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class APIServiceStandardHTTP implements APIService {
     CompanyProfileService companyProfileService;
@@ -34,9 +38,10 @@ public class APIServiceStandardHTTP implements APIService {
             Thread.currentThread().interrupt();
         }
 
-        Company company = null;
-        company = new Gson().fromJson(response.body(), Company.class);
-        companyProfileService.writeData(company);
+        Type companyListType = new TypeToken<Collection<Company>>() {
+        }.getType();
+        ArrayList<Company> companies = new Gson().fromJson(response.body(), companyListType);
+        companyProfileService.writeData(companies);
     }
 
     public void run() {
