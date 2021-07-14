@@ -1,5 +1,7 @@
 package com.example.anton_stock_feed.service;
 
+import com.example.anton_stock_feed.dao.CompanyProfileDAO;
+
 public class CompanyProfileServiceFactory {
 
     public CompanyProfileService createCompanyProfileService(String type, CompanyProfileDAO companyProfileDAO) {

@@ -1,4 +1,4 @@
-package com.example.anton_stock_feed.service;
+package com.example.anton_stock_feed.dao;
 
 import com.example.anton_stock_feed.model.Company;
 

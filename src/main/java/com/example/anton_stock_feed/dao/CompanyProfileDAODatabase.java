@@ -1,9 +1,7 @@
-package com.example.anton_stock_feed.service;
+package com.example.anton_stock_feed.dao;
 
 import com.example.anton_stock_feed.exceptions.DAOException;
 import com.example.anton_stock_feed.model.Company;
-import org.postgresql.jdbc.PgConnection;
-import com.google.gson.Gson;
 
 import java.sql.*;
 
@@ -59,15 +57,15 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
 
     @Override
     public void writeData(Iterable<Company> companies) {
+        try (Connection dbConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/stockfeed",
+                "postgres",
+                "PedbbRw4");
+             PreparedStatement preparedStatement = dbConnection.prepareStatement(
+                     "INSERT INTO company_profile (currency, description, displaysymbol, figi, mic, symbol, type)" +
+                             "VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+            dbConnection.setAutoCommit(false);
 
-        for (Company company : companies) {
-            try (Connection dbConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/stockfeed",
-                    "postgres",
-                    "PedbbRw4");
-                 PreparedStatement preparedStatement = dbConnection.prepareStatement(
-                         "INSERT INTO company_profile (currency, description, displaysymbol, figi, mic, symbol, type)" +
-                                 "VALUES (?, ?, ?, ?, ?, ?, ?)")) {
-
+            for (Company company : companies) {
                 preparedStatement.setString(1, company.getCurrency());
                 preparedStatement.setString(2, company.getDescription());
                 preparedStatement.setString(3, company.getDisplaysymbol());
@@ -75,12 +73,12 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
                 preparedStatement.setString(5, company.getMic());
                 preparedStatement.setString(6, company.getSymbol());
                 preparedStatement.setString(7, company.getType());
-
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                throw new DAOException(e);
+                preparedStatement.addBatch();
             }
+            preparedStatement.executeUpdate();
+            dbConnection.commit();
+        } catch (SQLException e) {
+            throw new DAOException(e);
         }
-
     }
 }

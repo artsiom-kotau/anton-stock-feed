@@ -16,14 +16,16 @@ import java.util.Collection;
 
 public class APIServiceStandardHTTP implements APIService {
     CompanyProfileService companyProfileService;
+    JsonSerialize jsonSerialize;
 
-    public APIServiceStandardHTTP(CompanyProfileService companyProfileService) {
+    public APIServiceStandardHTTP(CompanyProfileService companyProfileService, JsonSerialize jsonSerialize) {
         this.companyProfileService = companyProfileService;
+        this.jsonSerialize = jsonSerialize;
     }
 
     @Override
     public void getInfo() {
-        String uri = "https://finnhub.io/api/v1/stock/profile2?symbol=MSFT&token=c30vv6aad3idae6u5770";
+        String uri = "https://finnhub.io/api/v1/stock/symbol?exchange=US&mic=XNYS&token=c30vv6aad3idae6u5770";
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
@@ -38,9 +40,7 @@ public class APIServiceStandardHTTP implements APIService {
             Thread.currentThread().interrupt();
         }
 
-        Type companyListType = new TypeToken<Collection<Company>>() {
-        }.getType();
-        ArrayList<Company> companies = new Gson().fromJson(response.body(), companyListType);
+        ArrayList<Company> companies = (ArrayList<Company>) jsonSerialize.deserialize(response.body());
         companyProfileService.writeData(companies);
     }
 

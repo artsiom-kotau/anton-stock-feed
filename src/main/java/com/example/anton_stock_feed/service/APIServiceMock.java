@@ -11,9 +11,11 @@ import java.util.List;
 
 public class APIServiceMock implements APIService {
     CompanyProfileService companyProfileService;
+    JsonSerialize jsonSerialize;
 
-    public APIServiceMock(CompanyProfileService companyProfileService) {
+    public APIServiceMock(CompanyProfileService companyProfileService, JsonSerialize jsonSerialize) {
         this.companyProfileService = companyProfileService;
+        this.jsonSerialize = jsonSerialize;
     }
 
     @Override
@@ -21,9 +23,7 @@ public class APIServiceMock implements APIService {
         String data = "[{\"currency\":\"USD\",\"description\":\"MICROSOFT CORP\",\"displaySymbol\":\"MSFT\",\"figi\":\"BBG000BPH459\",\"mic\":\"XNAS\",\"symbol\":\"MSFT\",\"type\":\"Common Stock\"}," +
                 "{\"currency\":\"USD\",\"description\":\"APPLE INC\",\"displaysymbol\":\"AAPL\",\"figi\":\"BBG000B9XRY4\",\"mic\":\"XNAS\",\"symbol\":\"AAPL\",\"type\":\"Common stock\"}]";
 
-        Type companyListType = new TypeToken<Collection<Company>>() {
-        }.getType();
-        ArrayList<Company> companies = new Gson().fromJson(data, companyListType);
+        ArrayList<Company> companies = (ArrayList<Company>) jsonSerialize.deserialize(data);
         companyProfileService.writeData(companies);
     }
 

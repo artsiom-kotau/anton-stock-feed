@@ -1,4 +1,4 @@
-package com.example.anton_stock_feed.service;
+package com.example.anton_stock_feed.dao;
 
 public class CompanyProfileDAOFactory {
 

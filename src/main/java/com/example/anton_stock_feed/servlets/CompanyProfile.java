@@ -1,7 +1,7 @@
 package com.example.anton_stock_feed.servlets;
 
-import com.example.anton_stock_feed.service.CompanyProfileDAO;
-import com.example.anton_stock_feed.service.CompanyProfileDAOFactory;
+import com.example.anton_stock_feed.dao.CompanyProfileDAO;
+import com.example.anton_stock_feed.dao.CompanyProfileDAOFactory;
 import com.example.anton_stock_feed.service.CompanyProfileService;
 import com.example.anton_stock_feed.service.CompanyProfileServiceFactory;
 import com.example.anton_stock_feed.model.Company;
