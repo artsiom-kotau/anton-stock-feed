@@ -1,6 +1,7 @@
 package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.model.Company;
+import com.example.anton_stock_feed.model.GenericClass;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,9 +39,9 @@ public class JsonSerializeGson implements JsonSerialize {
 
     @Override
     public Object deserialize(String json) {
-        Type companyListType = new TypeToken<Collection<Company>>() {
+        Type companyListType = new TypeToken<Collection<GenericClass>>() {
         }.getType();
-        ArrayList<Company> jsonObjects = new Gson().fromJson(json, companyListType);
+        ArrayList<GenericClass> jsonObjects = new Gson().fromJson(json, companyListType);
         return jsonObjects;
     }
 }
