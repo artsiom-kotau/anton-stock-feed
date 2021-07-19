@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.TreeMap;
 
 public class APIServiceMock implements APIService {
     CompanyProfileService companyProfileService;
@@ -36,7 +37,7 @@ public class APIServiceMock implements APIService {
                 "{\"currency\":\"USD\",\"description\":\"APPLE INC\",\"displaySymbol\":\"AAPL\",\"figi\":\"BBG000B9XRY4\",\"mic\":\"XNAS\",\"symbol\":\"AAPL\",\"type\":\"Common stock\"}," +
                 "{\"currency\":\"USD\",\"description\":\"TESLA INC\",\"displaySymbol\":\"TSLA\",\"figi\":\"BBG000N9MNX3\",\"mic\":\"XNAS\",\"symbol\":\"TSLA\",\"type\":\"Common Stock\"}]";
 
-        ArrayList<Company> companies = (ArrayList<Company>) jsonSerialize.deserialize(data);
+        Collection<Company> companies = jsonSerialize.deserializeToCollection(data, Company.class);
         companyProfileService.writeData(companies);
     }
 

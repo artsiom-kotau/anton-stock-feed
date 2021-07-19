@@ -1,11 +1,11 @@
 package com.example.anton_stock_feed.service;
 
+import com.example.anton_stock_feed.model.Company;
+
 import java.util.Collection;
 
-public interface JsonSerialize {
-    String serialize(Object company);
+public interface JsonSerialize<T> {
+    String serialize(T t);
 
-    String serialize(Collection companies);
-
-    Object deserialize(String json);
+    Collection<T> deserializeToCollection(String json, Class<T> clazz);
 }

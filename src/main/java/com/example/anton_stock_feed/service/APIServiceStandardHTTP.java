@@ -13,6 +13,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class APIServiceStandardHTTP implements APIService {
     CompanyProfileService companyProfileService;
@@ -40,7 +41,7 @@ public class APIServiceStandardHTTP implements APIService {
             Thread.currentThread().interrupt();
         }
 
-        ArrayList<Company> companies = (ArrayList<Company>) jsonSerialize.deserialize(response.body());
+        Collection<Company> companies = jsonSerialize.deserializeToCollection(response.body(), Company.class);
         companyProfileService.writeData(companies);
     }
 
