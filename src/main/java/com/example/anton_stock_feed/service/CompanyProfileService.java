@@ -5,6 +5,4 @@ import com.example.anton_stock_feed.model.Company;
 public interface CompanyProfileService {
 
     Company getInfo(String companySymbol);
-
-    void writeData(Iterable<Company> companies);
 }
