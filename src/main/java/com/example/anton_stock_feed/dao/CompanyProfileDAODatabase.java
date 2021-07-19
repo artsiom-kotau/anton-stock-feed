@@ -59,7 +59,7 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
 
     @Override
     public void writeData(Iterable<Company> apiCompanies) {
-        Collection<String> companySymbolsDatabase = new HashSet<String>();
+        Collection<String> companySymbolsDatabase;
         Collection<Company> insertCompanies = new HashSet<Company>();
         Collection<String> insertUpdateCompanies = new HashSet<String>();
         Collection<Company> updateCompanies = new HashSet<Company>();
@@ -71,7 +71,7 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
             dbConnection.setAutoCommit(false);
 
             try {
-                companySymbolsDatabase = (HashSet<String>) this.checkAvailability(dbConnection);
+                companySymbolsDatabase = checkAvailability(dbConnection);
                 for (Company company : apiCompanies) {
                     String companySymbol = company.getSymbol();
                     if (companySymbolsDatabase.contains(companySymbol)) {
@@ -108,7 +108,7 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
         }
     }
 
-    public Iterable checkAvailability(Connection dbConnection) {
+    private Collection checkAvailability(Connection dbConnection) {
         Collection<String> companySymbolsDatabase = new HashSet<String>();
         try (PreparedStatement preparedStatement = dbConnection.prepareStatement("SELECT symbol FROM company_profile")) {
             ResultSet rs = preparedStatement.executeQuery();
@@ -121,7 +121,7 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
         return companySymbolsDatabase;
     }
 
-    public void updateCompanies(Iterable<Company> updateList, Connection dbConnection) {
+    private void updateCompanies(Iterable<Company> updateList, Connection dbConnection) {
         try (PreparedStatement preparedStatement = dbConnection.prepareStatement(
                 "UPDATE company_profile SET currency=?, description=?, displaysymbol=?, figi=?, mic=?, symbol=?, type=? WHERE symbol=?")) {
             for (Company company : updateList) {
@@ -141,7 +141,7 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
         }
     }
 
-    public void insertCompanies(Iterable<Company> insertList, Connection dbConnection) {
+    private void insertCompanies(Iterable<Company> insertList, Connection dbConnection) {
         try (PreparedStatement preparedStatement = dbConnection.prepareStatement(
                 "INSERT INTO company_profile (currency, description, displaysymbol, figi, mic, symbol, type)" +
                         "VALUES (?, ?, ?, ?, ?, ?, ?)")) {
@@ -161,7 +161,7 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
         }
     }
 
-    public void deleteCompanies(Iterable<String> deleteList, Connection dbConnection) {
+    private void deleteCompanies(Iterable<String> deleteList, Connection dbConnection) {
         try (PreparedStatement preparedStatement = dbConnection.prepareStatement(
                 "DELETE FROM company_profile WHERE symbol = ?")) {
             for (String companySymbol : deleteList) {
