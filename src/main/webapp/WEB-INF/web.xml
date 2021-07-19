@@ -3,8 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <servlet>
+        <servlet-name>company</servlet-name>
+        <servlet-class>com.example.anton_stock_feed.servlets.CompanyProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>CompanyProfile</servlet-name>
-        <url-pattern>/CompanyProfile/*</url-pattern>
+        <servlet-name>company</servlet-name>
+        <url-pattern>/company/*</url-pattern>
     </servlet-mapping>
+    <listener>
+        <listener-class>
+            com.example.anton_stock_feed.service.StockFeedContextListener
+        </listener-class>
+    </listener>
 </web-app>
