@@ -3,7 +3,7 @@ package com.example.anton_stock_feed.model;
 public class Company {
     private String currency;
     private String description;
-    private String displaysymbol;
+    private String displaySymbol;
     private String figi;
     private String mic;
     private String symbol;
@@ -11,7 +11,7 @@ public class Company {
 
     public Company(String currency,
                    String description,
-                   String displaysymbol,
+                   String displaySymbol,
                    String figi,
                    String mic,
                    String symbol,
@@ -19,7 +19,7 @@ public class Company {
 
         this.currency = currency;
         this.description = description;
-        this.displaysymbol = displaysymbol;
+        this.displaySymbol = displaySymbol;
         this.figi = figi;
         this.mic = mic;
         this.symbol = symbol;
@@ -34,8 +34,8 @@ public class Company {
         return description;
     }
 
-    public String getDisplaysymbol() {
-        return displaysymbol;
+    public String getDisplaySymbol() {
+        return displaySymbol;
     }
 
     public String getFigi() {
@@ -52,5 +52,18 @@ public class Company {
 
     public String getType() {
         return type;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "currency='" + currency + '\'' +
+                ", description='" + description + '\'' +
+                ", displaysymbol='" + displaySymbol + '\'' +
+                ", figi='" + figi + '\'' +
+                ", mic='" + mic + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }
