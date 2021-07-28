@@ -3,3 +3,6 @@ target/
 *.iml
 .idea/
 additional libraries/
+classes
+Bash commands.txt
+anton-stock-feed-servlet/

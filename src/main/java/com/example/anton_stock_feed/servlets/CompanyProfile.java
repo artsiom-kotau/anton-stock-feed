@@ -2,15 +2,16 @@ package com.example.anton_stock_feed.servlets;
 
 import com.example.anton_stock_feed.dao.CompanyProfileDAO;
 import com.example.anton_stock_feed.dao.CompanyProfileDAOFactory;
+import com.example.anton_stock_feed.model.Company;
 import com.example.anton_stock_feed.service.CompanyProfileService;
 import com.example.anton_stock_feed.service.CompanyProfileServiceFactory;
-import com.example.anton_stock_feed.model.Company;
 import com.example.anton_stock_feed.service.JsonSerialize;
 import com.example.anton_stock_feed.service.JsonSerializeGson;
-import com.google.gson.Gson;
 
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 

@@ -14,14 +14,14 @@ public class StockFeedContextListener implements javax.servlet.ServletContextLis
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         CompanyProfileDAOFactory companyProfileDAOFactory = new CompanyProfileDAOFactory();
-        CompanyProfileDAO companyProfileDAO = companyProfileDAOFactory.createCompanyProfileDAO("Database");
+        CompanyProfileDAO companyProfileDAO = companyProfileDAOFactory.createCompanyProfileDAO(System.getProperty("DAO"));
         CompanyProfileServiceFactory companyProfileServiceFactory = new CompanyProfileServiceFactory();
-        CompanyProfileService companyProfileService = companyProfileServiceFactory.createCompanyProfileService("Database", companyProfileDAO);
+        CompanyProfileService companyProfileService = companyProfileServiceFactory.createCompanyProfileService(System.getProperty("ProfileService"), companyProfileDAO);
         JsonSerializeFactory jsonSerializeFactory = new JsonSerializeFactory();
-        JsonSerialize jsonSerialize = jsonSerializeFactory.createJsonSerialize("Gson");
+        JsonSerialize jsonSerialize = jsonSerializeFactory.createJsonSerialize(System.getProperty("JsonSerialize"));
 
         APIServiceFactory apiServiceFactory = new APIServiceFactory();
-        APIService apiService = apiServiceFactory.createAPIService("Mock", companyProfileService, jsonSerialize);
+        APIService apiService = apiServiceFactory.createAPIService(System.getProperty("APIService"), companyProfileService, jsonSerialize);
         ses = Executors.newSingleThreadScheduledExecutor();
         ses.scheduleWithFixedDelay(apiService::getInfo, 0, 10, TimeUnit.SECONDS);
     }
