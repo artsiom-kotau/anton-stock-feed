@@ -2,11 +2,13 @@ package com.example.anton_stock_feed.dao;
 
 import com.example.anton_stock_feed.exceptions.DAOException;
 import com.example.anton_stock_feed.model.Company;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.Collection;
 import java.util.HashSet;
 
+@Component
 public class CompanyProfileDAODatabase implements CompanyProfileDAO {
     private volatile static CompanyProfileDAODatabase companyProfileDAODatabase;
 

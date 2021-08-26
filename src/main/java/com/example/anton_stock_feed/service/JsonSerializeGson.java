@@ -2,10 +2,12 @@ package com.example.anton_stock_feed.service;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
 
+@Component
 public class JsonSerializeGson<T> implements JsonSerialize<T> {
     private volatile static JsonSerializeGson<?> jsonSerializeGson;
 
