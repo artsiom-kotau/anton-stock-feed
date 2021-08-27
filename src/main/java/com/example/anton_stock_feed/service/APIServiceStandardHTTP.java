@@ -2,6 +2,7 @@ package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.exceptions.APIServiceException;
 import com.example.anton_stock_feed.model.Company;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URI;
@@ -10,6 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Collection;
 
+@Component
 public class APIServiceStandardHTTP implements APIService {
     CompanyProfileService companyProfileService;
     JsonSerialize jsonSerialize;

@@ -21,7 +21,8 @@ public class CompanyProfileSB {
     JsonSerialize jsonSerialize;
 
 
-    public CompanyProfileSB(JsonSerializeGson jsonSerialize, CompanyProfileServiceDatabase companyProfileService,
+    public CompanyProfileSB(JsonSerializeGson jsonSerialize,
+                            CompanyProfileServiceDatabase companyProfileService,
                             CompanyProfileDAODatabase companyProfileDAO) {
         this.companyProfileDAO = companyProfileDAO;
         this.companyProfileService = companyProfileService;
