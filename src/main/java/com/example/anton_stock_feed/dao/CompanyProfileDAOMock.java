@@ -1,6 +1,7 @@
 package com.example.anton_stock_feed.dao;
 
 import com.example.anton_stock_feed.model.Company;
+import org.springframework.stereotype.Component;
 
 public class CompanyProfileDAOMock implements CompanyProfileDAO {
     private volatile static CompanyProfileDAOMock companyProfileDAOMock;

@@ -8,7 +8,6 @@ import java.sql.*;
 import java.util.Collection;
 import java.util.HashSet;
 
-@Component("CompanyProfileDAODatabase")
 public class CompanyProfileDAODatabase implements CompanyProfileDAO {
     private volatile static CompanyProfileDAODatabase companyProfileDAODatabase;
 

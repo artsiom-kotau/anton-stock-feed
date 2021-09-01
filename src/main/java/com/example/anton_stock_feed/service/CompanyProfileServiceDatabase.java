@@ -4,7 +4,6 @@ import com.example.anton_stock_feed.dao.CompanyProfileDAO;
 import com.example.anton_stock_feed.model.Company;
 import org.springframework.stereotype.Component;
 
-@Component
 public class CompanyProfileServiceDatabase implements CompanyProfileService {
     private volatile static CompanyProfileServiceDatabase companyProfileServiceDatabase;
     CompanyProfileDAO companyProfileDAO;

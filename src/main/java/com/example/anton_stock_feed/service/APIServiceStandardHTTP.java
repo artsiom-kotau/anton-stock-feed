@@ -11,8 +11,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Collection;
 
-@Component
 public class APIServiceStandardHTTP implements APIService {
+
     CompanyProfileService companyProfileService;
     JsonSerialize jsonSerialize;
 
@@ -23,6 +23,7 @@ public class APIServiceStandardHTTP implements APIService {
 
     @Override
     public void getInfo() {
+
         String uri = "https://finnhub.io/api/v1/stock/symbol?exchange=US&mic=XNYS&token=c30vv6aad3idae6u5770";
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()

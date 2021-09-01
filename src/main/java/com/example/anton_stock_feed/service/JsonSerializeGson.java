@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-@Component
 public class JsonSerializeGson<T> implements JsonSerialize<T> {
     private volatile static JsonSerializeGson<?> jsonSerializeGson;
 

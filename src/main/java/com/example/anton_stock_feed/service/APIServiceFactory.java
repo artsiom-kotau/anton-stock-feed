@@ -1,5 +1,8 @@
 package com.example.anton_stock_feed.service;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class APIServiceFactory {
     public APIService createAPIService(String type, CompanyProfileService companyProfileService, JsonSerialize jsonSerialize) {
         APIService apiService = null;

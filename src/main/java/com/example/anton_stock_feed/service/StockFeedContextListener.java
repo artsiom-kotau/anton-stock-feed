@@ -1,15 +1,11 @@
 package com.example.anton_stock_feed.service;
 
+import com.example.anton_stock_feed.configuration.JavaConfiguration;
 import com.example.anton_stock_feed.dao.CompanyProfileDAO;
-import com.example.anton_stock_feed.dao.CompanyProfileDAODatabase;
 import com.example.anton_stock_feed.dao.CompanyProfileDAOFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContextEvent;
-import javax.servlet.annotation.WebListener;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -22,14 +18,15 @@ public class StockFeedContextListener implements javax.servlet.ServletContextLis
     JsonSerialize jsonSerialize;
     APIService apiService;
 
-    public StockFeedContextListener(CompanyProfileDAODatabase companyProfileDAO,
-                                    CompanyProfileServiceDatabase companyProfileService,
-                                    JsonSerialize jsonSerialize,
-                                    APIService apiService) {
-        this.companyProfileDAO = companyProfileDAO;
-        this.companyProfileService = companyProfileService;
-        this.jsonSerialize = jsonSerialize;
-        this.apiService = apiService;
+    public StockFeedContextListener(JavaConfiguration javaConfiguration,
+                                    CompanyProfileDAOFactory companyProfileDAOFactory,
+                                    CompanyProfileServiceFactory companyProfileServiceFactory,
+                                    JsonSerializeFactory jsonSerializeFactory,
+                                    APIServiceFactory apiServiceFactory) {
+        this.companyProfileDAO = companyProfileDAOFactory.createCompanyProfileDAO(javaConfiguration.getDAO());
+        this.companyProfileService = companyProfileServiceFactory.createCompanyProfileService(javaConfiguration.getProfileService(), companyProfileDAO);
+        this.jsonSerialize = jsonSerializeFactory.createJsonSerialize(javaConfiguration.getJsonSerialize());
+        this.apiService = apiServiceFactory.createAPIService(javaConfiguration.getAPIService(), companyProfileService, jsonSerialize);
     }
 
     @Override

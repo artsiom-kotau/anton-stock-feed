@@ -1,5 +1,8 @@
 package com.example.anton_stock_feed.dao;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CompanyProfileDAOFactory {
 
     public CompanyProfileDAO createCompanyProfileDAO(String type) {
