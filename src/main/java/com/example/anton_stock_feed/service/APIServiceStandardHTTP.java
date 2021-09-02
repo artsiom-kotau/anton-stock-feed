@@ -2,6 +2,7 @@ package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.exceptions.APIServiceException;
 import com.example.anton_stock_feed.model.Company;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -23,7 +24,6 @@ public class APIServiceStandardHTTP implements APIService {
 
     @Override
     public void getInfo() {
-
         String uri = "https://finnhub.io/api/v1/stock/symbol?exchange=US&mic=XNYS&token=c30vv6aad3idae6u5770";
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
