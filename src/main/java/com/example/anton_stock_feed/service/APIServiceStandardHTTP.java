@@ -2,8 +2,6 @@ package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.exceptions.APIServiceException;
 import com.example.anton_stock_feed.model.Company;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,11 +12,11 @@ import java.util.Collection;
 
 public class APIServiceStandardHTTP implements APIService {
 
-    CompanyProfileService companyProfileService;
+    CompanyProfileServiceInterface companyProfileServiceInterface;
     JsonSerialize jsonSerialize;
 
-    public APIServiceStandardHTTP(CompanyProfileService companyProfileService, JsonSerialize jsonSerialize) {
-        this.companyProfileService = companyProfileService;
+    public APIServiceStandardHTTP(CompanyProfileServiceInterface companyProfileServiceInterface, JsonSerialize jsonSerialize) {
+        this.companyProfileServiceInterface = companyProfileServiceInterface;
         this.jsonSerialize = jsonSerialize;
     }
 
@@ -40,7 +38,7 @@ public class APIServiceStandardHTTP implements APIService {
         }
 
         Collection<Company> companies = jsonSerialize.deserializeToCollection(response.body(), Company.class);
-        companyProfileService.writeData(companies);
+        companyProfileServiceInterface.writeData(companies);
     }
 
     public void run() {

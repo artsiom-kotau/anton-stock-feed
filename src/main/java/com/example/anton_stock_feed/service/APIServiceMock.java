@@ -5,11 +5,11 @@ import com.example.anton_stock_feed.model.Company;
 import java.util.Collection;
 
 public class APIServiceMock implements APIService {
-    CompanyProfileService companyProfileService;
+    CompanyProfileServiceInterface companyProfileServiceInterface;
     JsonSerialize jsonSerialize;
 
-    public APIServiceMock(CompanyProfileService companyProfileService, JsonSerialize jsonSerialize) {
-        this.companyProfileService = companyProfileService;
+    public APIServiceMock(CompanyProfileServiceInterface companyProfileServiceInterface, JsonSerialize jsonSerialize) {
+        this.companyProfileServiceInterface = companyProfileServiceInterface;
         this.jsonSerialize = jsonSerialize;
     }
 
@@ -32,7 +32,7 @@ public class APIServiceMock implements APIService {
                 "{\"currency\":\"USD\",\"description\":\"TESLA INC\",\"displaySymbol\":\"TSLA\",\"figi\":\"BBG000N9MNX3\",\"mic\":\"XNAS\",\"symbol\":\"TSLA\",\"type\":\"Common Stock\"}]";
 
         Collection<Company> companies = jsonSerialize.deserializeToCollection(data, Company.class);
-        companyProfileService.writeData(companies);
+        companyProfileServiceInterface.writeData(companies);
     }
 
     public void run() {
