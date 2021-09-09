@@ -1,15 +1,15 @@
 package com.example.anton_stock_feed.service;
 
-import com.example.anton_stock_feed.model.Company;
+import com.example.anton_stock_feed.entity.CompanyEntity;
 
 import java.util.Collection;
 
 public class APIServiceMock implements APIService {
-    CompanyProfileServiceInterface companyProfileServiceInterface;
+    CompanyProfileService companyProfileService;
     JsonSerialize jsonSerialize;
 
-    public APIServiceMock(CompanyProfileServiceInterface companyProfileServiceInterface, JsonSerialize jsonSerialize) {
-        this.companyProfileServiceInterface = companyProfileServiceInterface;
+    public APIServiceMock(CompanyProfileService companyProfileService, JsonSerialize jsonSerialize) {
+        this.companyProfileService = companyProfileService;
         this.jsonSerialize = jsonSerialize;
     }
 
@@ -31,8 +31,8 @@ public class APIServiceMock implements APIService {
                 "{\"currency\":\"USD\",\"description\":\"APPLE INC\",\"displaySymbol\":\"AAPL\",\"figi\":\"BBG000B9XRY4\",\"mic\":\"XNAS\",\"symbol\":\"AAPL\",\"type\":\"Common stock\"}," +
                 "{\"currency\":\"USD\",\"description\":\"TESLA INC\",\"displaySymbol\":\"TSLA\",\"figi\":\"BBG000N9MNX3\",\"mic\":\"XNAS\",\"symbol\":\"TSLA\",\"type\":\"Common Stock\"}]";
 
-        Collection<Company> companies = jsonSerialize.deserializeToCollection(data, Company.class);
-        companyProfileServiceInterface.writeData(companies);
+        Collection<CompanyEntity> companies = jsonSerialize.deserializeToCollection(data, CompanyEntity.class);
+        companyProfileService.writeData(companies);
     }
 
     public void run() {

@@ -2,6 +2,7 @@ package com.example.anton_stock_feed.configuration;
 
 import com.example.anton_stock_feed.dao.CompanyProfileDAO;
 import com.example.anton_stock_feed.dao.CompanyProfileDAOFactory;
+import com.example.anton_stock_feed.dao.CompanyProfileDaoJpa;
 import com.example.anton_stock_feed.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +32,12 @@ public class SpringConfig {
     }
 
     @Bean
-    public CompanyProfileServiceInterface companyProfileService() {
-        return new CompanyProfileService(companyProfileDAO());
+    public CompanyProfileService companyProfileService() {
+        return new CompanyProfileServiceImpl(companyProfileDAO());
+    }
+
+    @Bean
+    public CompanyProfileServiceJpaImpl companyProfileServiceJpa(CompanyProfileDaoJpa companyProfileDaoJpa) {
+        return new CompanyProfileServiceJpaImpl(companyProfileDaoJpa);
     }
 }

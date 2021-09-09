@@ -13,7 +13,7 @@ public class APIDataBySchedule {
         this.apiService = apiService;
     }
 
-    @Scheduled(fixedDelay = 5000L)
+    @Scheduled(fixedDelay = 1000000000L)
     public void getAPIData() {
         apiService.getInfo();
     }

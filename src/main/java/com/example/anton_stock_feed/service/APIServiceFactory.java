@@ -4,12 +4,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class APIServiceFactory {
-    public APIService createAPIService(String type, CompanyProfileServiceInterface companyProfileServiceInterface, JsonSerialize jsonSerialize) {
+    public APIService createAPIService(String type, CompanyProfileService companyProfileService, JsonSerialize jsonSerialize) {
         APIService apiService = null;
         if (type.equals("StandardHTTP")) {
-            apiService = new APIServiceStandardHTTP(companyProfileServiceInterface, jsonSerialize);
+            apiService = new APIServiceStandardHTTP(companyProfileService, jsonSerialize);
         } else if (type.equals("Mock")) {
-            apiService = new APIServiceMock(companyProfileServiceInterface, jsonSerialize);
+            apiService = new APIServiceMock(companyProfileService, jsonSerialize);
         }
         return apiService;
     }

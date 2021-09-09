@@ -1,7 +1,8 @@
 package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.exceptions.APIServiceException;
-import com.example.anton_stock_feed.model.Company;
+import com.example.anton_stock_feed.entity.CompanyEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.net.URI;
@@ -12,11 +13,15 @@ import java.util.Collection;
 
 public class APIServiceStandardHTTP implements APIService {
 
-    CompanyProfileServiceInterface companyProfileServiceInterface;
+    CompanyProfileService companyProfileService;
     JsonSerialize jsonSerialize;
 
-    public APIServiceStandardHTTP(CompanyProfileServiceInterface companyProfileServiceInterface, JsonSerialize jsonSerialize) {
-        this.companyProfileServiceInterface = companyProfileServiceInterface;
+    @Autowired
+    CompanyProfileServiceJpa companyProfileServiceJpa;
+
+    public APIServiceStandardHTTP(CompanyProfileService companyProfileService,
+                                  JsonSerialize jsonSerialize) {
+        this.companyProfileService = companyProfileService;
         this.jsonSerialize = jsonSerialize;
     }
 
@@ -37,8 +42,9 @@ public class APIServiceStandardHTTP implements APIService {
             Thread.currentThread().interrupt();
         }
 
-        Collection<Company> companies = jsonSerialize.deserializeToCollection(response.body(), Company.class);
-        companyProfileServiceInterface.writeData(companies);
+        Collection<CompanyEntity> companies = jsonSerialize.deserializeToCollection(response.body(), CompanyEntity.class);
+        //companyProfileServiceInterface.writeData(companies);
+        companyProfileServiceJpa.save(companies);
     }
 
     public void run() {

@@ -1,7 +1,0 @@
-package com.example.anton_stock_feed.repositories;
-
-import com.example.anton_stock_feed.model.Company;
-import org.springframework.data.repository.CrudRepository;
-
-public interface CompanyRepository extends CrudRepository<Company, Integer> {
-}

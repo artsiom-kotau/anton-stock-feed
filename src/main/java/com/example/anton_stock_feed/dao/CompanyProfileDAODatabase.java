@@ -1,12 +1,12 @@
 package com.example.anton_stock_feed.dao;
 
 import com.example.anton_stock_feed.exceptions.DAOException;
-import com.example.anton_stock_feed.model.Company;
-import org.springframework.stereotype.Component;
+import com.example.anton_stock_feed.entity.CompanyEntity;
 
 import java.sql.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 
 public class CompanyProfileDAODatabase implements CompanyProfileDAO {
     private volatile static CompanyProfileDAODatabase companyProfileDAODatabase;
@@ -31,8 +31,8 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
     }
 
     @Override
-    public Company getInfo(String companySymbol) {
-        Company company = null;
+    public Optional<CompanyEntity> getInfo(String companySymbol) {
+        CompanyEntity companyEntity = null;
 
         try (Connection dbConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/stockfeed",
                 "postgres",
@@ -50,21 +50,20 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
                 String mic = rs.getString("mic");
                 String type = rs.getString("type");
 
-                company = new Company(currency, description, displaysymbol, figi, mic, symbol, type);
+                companyEntity = new CompanyEntity(currency, description, displaysymbol, figi, mic, symbol, type);
             }
         } catch (SQLException e) {
             throw new DAOException(e);
         }
-        return company;
+        return Optional.ofNullable(companyEntity);
     }
 
     @Override
-    public void writeData(Iterable<Company> apiCompanies) {
+    public void writeData(Iterable<CompanyEntity> apiCompanies) {
         Collection<String> companySymbolsDatabase;
-        Collection<Company> insertCompanies = new HashSet<Company>();
+        Collection<CompanyEntity> insertCompanies = new HashSet<CompanyEntity>();
         Collection<String> insertUpdateCompanies = new HashSet<String>();
-        Collection<Company> updateCompanies = new HashSet<Company>();
-        Collection<String> deleteCompanies = new HashSet<String>();
+        Collection<CompanyEntity> updateCompanies = new HashSet<CompanyEntity>();
 
         try (Connection dbConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/stockfeed",
                 "postgres",
@@ -73,20 +72,20 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
 
             try {
                 companySymbolsDatabase = checkAvailability(dbConnection);
-                for (Company company : apiCompanies) {
-                    String companySymbol = company.getSymbol();
+                for (CompanyEntity companyEntity : apiCompanies) {
+                    String companySymbol = companyEntity.getSymbol();
                     if (companySymbolsDatabase.contains(companySymbol)) {
-                        updateCompanies.add(company);
+                        updateCompanies.add(companyEntity);
                     } else {
-                        insertCompanies.add(company);
+                        insertCompanies.add(companyEntity);
                     }
                 }
 
-                for (Company company : insertCompanies) {
-                    insertUpdateCompanies.add(company.getSymbol());
+                for (CompanyEntity companyEntity : insertCompanies) {
+                    insertUpdateCompanies.add(companyEntity.getSymbol());
                 }
-                for (Company company : updateCompanies) {
-                    insertUpdateCompanies.add(company.getSymbol());
+                for (CompanyEntity companyEntity : updateCompanies) {
+                    insertUpdateCompanies.add(companyEntity.getSymbol());
                 }
                 companySymbolsDatabase.removeAll(insertUpdateCompanies);
 
@@ -122,18 +121,18 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
         return companySymbolsDatabase;
     }
 
-    private void updateCompanies(Iterable<Company> updateList, Connection dbConnection) {
+    private void updateCompanies(Iterable<CompanyEntity> updateList, Connection dbConnection) {
         try (PreparedStatement preparedStatement = dbConnection.prepareStatement(
                 "UPDATE company_profile SET currency=?, description=?, displaysymbol=?, figi=?, mic=?, symbol=?, type=? WHERE symbol=?")) {
-            for (Company company : updateList) {
-                preparedStatement.setString(1, company.getCurrency());
-                preparedStatement.setString(2, company.getDescription());
-                preparedStatement.setString(3, company.getDisplaySymbol());
-                preparedStatement.setString(4, company.getFigi());
-                preparedStatement.setString(5, company.getMic());
-                preparedStatement.setString(6, company.getSymbol());
-                preparedStatement.setString(7, company.getType());
-                preparedStatement.setString(8, company.getSymbol());
+            for (CompanyEntity companyEntity : updateList) {
+                preparedStatement.setString(1, companyEntity.getCurrency());
+                preparedStatement.setString(2, companyEntity.getDescription());
+                preparedStatement.setString(3, companyEntity.getDisplaySymbol());
+                preparedStatement.setString(4, companyEntity.getFigi());
+                preparedStatement.setString(5, companyEntity.getMic());
+                preparedStatement.setString(6, companyEntity.getSymbol());
+                preparedStatement.setString(7, companyEntity.getType());
+                preparedStatement.setString(8, companyEntity.getSymbol());
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
@@ -142,18 +141,18 @@ public class CompanyProfileDAODatabase implements CompanyProfileDAO {
         }
     }
 
-    private void insertCompanies(Iterable<Company> insertList, Connection dbConnection) {
+    private void insertCompanies(Iterable<CompanyEntity> insertList, Connection dbConnection) {
         try (PreparedStatement preparedStatement = dbConnection.prepareStatement(
                 "INSERT INTO company_profile (currency, description, displaysymbol, figi, mic, symbol, type)" +
                         "VALUES (?, ?, ?, ?, ?, ?, ?)")) {
-            for (Company company : insertList) {
-                preparedStatement.setString(1, company.getCurrency());
-                preparedStatement.setString(2, company.getDescription());
-                preparedStatement.setString(3, company.getDisplaySymbol());
-                preparedStatement.setString(4, company.getFigi());
-                preparedStatement.setString(5, company.getMic());
-                preparedStatement.setString(6, company.getSymbol());
-                preparedStatement.setString(7, company.getType());
+            for (CompanyEntity companyEntity : insertList) {
+                preparedStatement.setString(1, companyEntity.getCurrency());
+                preparedStatement.setString(2, companyEntity.getDescription());
+                preparedStatement.setString(3, companyEntity.getDisplaySymbol());
+                preparedStatement.setString(4, companyEntity.getFigi());
+                preparedStatement.setString(5, companyEntity.getMic());
+                preparedStatement.setString(6, companyEntity.getSymbol());
+                preparedStatement.setString(7, companyEntity.getType());
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();

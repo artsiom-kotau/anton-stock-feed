@@ -1,27 +1,31 @@
-package com.example.anton_stock_feed.model;
+package com.example.anton_stock_feed.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Company {
+@Table(name = "company_profile")
+public class CompanyEntity {
     private String currency;
     private String description;
+
+    @Column(name = "displaysymbol")
     private String displaySymbol;
     private String figi;
     private String mic;
     private String symbol;
     private String type;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    public Company(String currency,
-                   String description,
-                   String displaySymbol,
-                   String figi,
-                   String mic,
-                   String symbol,
-                   String type) {
+    public CompanyEntity(String currency,
+                         String description,
+                         String displaySymbol,
+                         String figi,
+                         String mic,
+                         String symbol,
+                         String type) {
 
         this.currency = currency;
         this.description = description;
@@ -32,7 +36,7 @@ public class Company {
         this.type = type;
     }
 
-    public Company() {
+    public CompanyEntity() {
 
     }
 
@@ -109,7 +113,6 @@ public class Company {
         this.id = id;
     }
 
-    @Id
     @GeneratedValue
     public Integer getId() {
         return id;

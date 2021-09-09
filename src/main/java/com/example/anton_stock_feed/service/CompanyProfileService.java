@@ -1,23 +1,12 @@
 package com.example.anton_stock_feed.service;
 
-import com.example.anton_stock_feed.dao.CompanyProfileDAO;
-import com.example.anton_stock_feed.model.Company;
-import org.springframework.stereotype.Component;
+import com.example.anton_stock_feed.entity.CompanyEntity;
 
-public class CompanyProfileService implements CompanyProfileServiceInterface {
-    CompanyProfileDAO companyProfileDAO;
+import java.util.Optional;
 
-    public CompanyProfileService(CompanyProfileDAO companyProfileDAO) {
-        this.companyProfileDAO = companyProfileDAO;
-    }
+public interface CompanyProfileService {
 
-    @Override
-    public Company getInfo(String companySymbol) {
-        return companyProfileDAO.getInfo(companySymbol);
-    }
+    Optional<CompanyEntity> getInfo(String companySymbol);
 
-    @Override
-    public void writeData(Iterable<Company> companies) {
-        companyProfileDAO.writeData(companies);
-    }
+    void writeData(Iterable<CompanyEntity> companies);
 }

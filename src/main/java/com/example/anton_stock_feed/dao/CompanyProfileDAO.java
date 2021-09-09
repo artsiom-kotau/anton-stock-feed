@@ -1,10 +1,12 @@
 package com.example.anton_stock_feed.dao;
 
-import com.example.anton_stock_feed.model.Company;
+import com.example.anton_stock_feed.entity.CompanyEntity;
+
+import java.util.Optional;
 
 public interface CompanyProfileDAO {
 
-    Company getInfo(String companySymbol);
+    Optional<CompanyEntity> getInfo(String companySymbol);
 
-    void writeData(Iterable<Company> companies);
+    void writeData(Iterable<CompanyEntity> companies);
 }

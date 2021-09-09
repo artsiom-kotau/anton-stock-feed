@@ -1,7 +1,8 @@
 package com.example.anton_stock_feed.dao;
 
-import com.example.anton_stock_feed.model.Company;
-import org.springframework.stereotype.Component;
+import com.example.anton_stock_feed.entity.CompanyEntity;
+
+import java.util.Optional;
 
 public class CompanyProfileDAOMock implements CompanyProfileDAO {
     private volatile static CompanyProfileDAOMock companyProfileDAOMock;
@@ -22,18 +23,18 @@ public class CompanyProfileDAOMock implements CompanyProfileDAO {
     }
 
     @Override
-    public Company getInfo(String companySymbol) {
-        Company company = null;
+    public Optional<CompanyEntity> getInfo(String companySymbol) {
+        CompanyEntity companyEntity = null;
         if (companySymbol.equals("AAPL")) {
-            company = new Company("USD", "APPLE INC", "AAPL", "BBG000B9XRY4", "XNAS", "AAPL", "Common Stock");
+            companyEntity = new CompanyEntity("USD", "APPLE INC", "AAPL", "BBG000B9XRY4", "XNAS", "AAPL", "Common Stock");
         } else if (companySymbol.equals("TSLA")) {
-            company = new Company("USD", "TESLA INC", "TSLA", "BBG000N9MNX3", "XNAS", "TSLA", "Common Stock");
+            companyEntity = new CompanyEntity("USD", "TESLA INC", "TSLA", "BBG000N9MNX3", "XNAS", "TSLA", "Common Stock");
         }
-        return company;
+        return Optional.ofNullable(companyEntity);
     }
 
     @Override
-    public void writeData(Iterable<Company> companies) {
+    public void writeData(Iterable<CompanyEntity> companies) {
         System.out.println("DAO level " + companies.toString());
     }
 }
