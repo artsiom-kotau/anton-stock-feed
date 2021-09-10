@@ -3,6 +3,8 @@ package com.example.anton_stock_feed.service;
 import com.example.anton_stock_feed.dao.CompanyProfileDaoJpa;
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.entity.CompanyEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.example.anton_stock_feed.service.CompanyMapper;
 
 import javax.transaction.Transactional;
 import java.util.*;
@@ -10,10 +12,13 @@ import java.util.*;
 public class CompanyProfileServiceJpaImpl implements CompanyProfileServiceJpa {
 
     CompanyProfileDaoJpa companyProfileDaoJpa;
+
     CompanyMapper companyMapper;
 
-    public CompanyProfileServiceJpaImpl(CompanyProfileDaoJpa companyProfileDaoJpa) {
+    public CompanyProfileServiceJpaImpl(CompanyProfileDaoJpa companyProfileDaoJpa,
+                                        CompanyMapper companyMapper) {
         this.companyProfileDaoJpa = companyProfileDaoJpa;
+        this.companyMapper = companyMapper;
     }
 
     @Transactional
@@ -27,7 +32,8 @@ public class CompanyProfileServiceJpaImpl implements CompanyProfileServiceJpa {
     @Override
     public CompanyDto findByDisplaySymbol(String displaySymbol) {
         Optional<CompanyEntity> company = companyProfileDaoJpa.findAllByDisplaySymbol(displaySymbol);
-        return companyMapper.toDto(company);
+        CompanyDto companyDto = companyMapper.INSTANCE.toDto(company);
+        return companyDto;
     }
 
     @Transactional

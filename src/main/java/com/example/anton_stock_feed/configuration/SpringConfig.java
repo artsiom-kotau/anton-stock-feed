@@ -37,7 +37,8 @@ public class SpringConfig {
     }
 
     @Bean
-    public CompanyProfileServiceJpaImpl companyProfileServiceJpa(CompanyProfileDaoJpa companyProfileDaoJpa) {
-        return new CompanyProfileServiceJpaImpl(companyProfileDaoJpa);
+    public CompanyProfileServiceJpaImpl companyProfileServiceJpa(CompanyProfileDaoJpa companyProfileDaoJpa,
+                                                                 CompanyMapper companyMapper) {
+        return new CompanyProfileServiceJpaImpl(companyProfileDaoJpa, companyMapper);
     }
 }
