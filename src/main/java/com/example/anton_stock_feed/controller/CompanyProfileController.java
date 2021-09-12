@@ -1,7 +1,7 @@
 package com.example.anton_stock_feed.controller;
 
 import com.example.anton_stock_feed.dto.CompanyDto;
-import com.example.anton_stock_feed.service.CompanyProfileServiceJpa;
+import com.example.anton_stock_feed.service.CompanyProfileService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/company")
 public class CompanyProfileController {
-    CompanyProfileServiceJpa companyProfileServiceJpa;
+    CompanyProfileService companyProfileService;
 
-    public CompanyProfileController(CompanyProfileServiceJpa companyProfileServiceJpa) {
-        this.companyProfileServiceJpa = companyProfileServiceJpa;
+    public CompanyProfileController(CompanyProfileService companyProfileService) {
+        this.companyProfileService = companyProfileService;
     }
 
     @GetMapping
@@ -23,12 +23,12 @@ public class CompanyProfileController {
 
     @GetMapping("{/all}")
     public Iterable<CompanyDto> getAllCompanies() {
-        return companyProfileServiceJpa.findAll();
+        return companyProfileService.findAll();
     }
 
     @GetMapping("{companyName}")
     public CompanyDto getCompany(@PathVariable String companyName) {
-        return companyProfileServiceJpa.findByDisplaySymbol(companyName);
+        return companyProfileService.findByDisplaySymbol(companyName);
     }
 
 }

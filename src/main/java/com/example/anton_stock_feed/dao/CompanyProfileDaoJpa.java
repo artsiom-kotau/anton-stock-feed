@@ -4,6 +4,7 @@ import com.example.anton_stock_feed.entity.CompanyEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public interface CompanyProfileDaoJpa extends CrudRepository<CompanyEntity, Integer> {
@@ -11,5 +12,5 @@ public interface CompanyProfileDaoJpa extends CrudRepository<CompanyEntity, Inte
     Optional<CompanyEntity> findAllByDisplaySymbol(String displaySymbol);
 
     @Query(value = "SELECT symbol FROM company_profile", nativeQuery = true)
-    Iterable<String> getAllSymbols();
+    Collection<String> getAllSymbols();
 }
