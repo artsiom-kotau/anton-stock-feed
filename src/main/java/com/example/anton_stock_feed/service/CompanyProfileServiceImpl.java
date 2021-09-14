@@ -1,6 +1,6 @@
 package com.example.anton_stock_feed.service;
 
-import com.example.anton_stock_feed.dao.CompanyProfileDaoJpa;
+import com.example.anton_stock_feed.dao.CompanyProfileDao;
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.entity.CompanyEntity;
 
@@ -8,39 +8,39 @@ import javax.transaction.Transactional;
 import java.util.*;
 
 public class CompanyProfileServiceImpl implements CompanyProfileService {
-    CompanyProfileDaoJpa companyProfileDaoJpa;
+    CompanyProfileDao companyProfileDao;
     CompanyMapper companyMapper;
 
-    public CompanyProfileServiceImpl(CompanyProfileDaoJpa companyProfileDaoJpa,
+    public CompanyProfileServiceImpl(CompanyProfileDao companyProfileDao,
                                      CompanyMapper companyMapper) {
-        this.companyProfileDaoJpa = companyProfileDaoJpa;
+        this.companyProfileDao = companyProfileDao;
         this.companyMapper = companyMapper;
     }
 
     @Transactional
     @Override
     public CompanyDto findById(Integer id) {
-        Optional<CompanyEntity> company = companyProfileDaoJpa.findById(id);
+        Optional<CompanyEntity> company = companyProfileDao.findById(id);
         return company.map(companyMapper::toDto).orElse(null);
     }
 
     @Transactional
     @Override
     public CompanyDto findByDisplaySymbol(String displaySymbol) {
-        Optional<CompanyEntity> company = companyProfileDaoJpa.findAllByDisplaySymbol(displaySymbol);
+        Optional<CompanyEntity> company = companyProfileDao.findAllByDisplaySymbol(displaySymbol);
         return company.map(companyMapper::toDto).orElse(null);
     }
 
     @Transactional
     @Override
     public Iterable<CompanyDto> findAll() {
-        Iterable<CompanyEntity> companies = companyProfileDaoJpa.findAll();
+        Iterable<CompanyEntity> companies = companyProfileDao.findAll();
         return companyMapper.companiesToCompanyDtos(companies);
     }
 
     @Transactional
     public Iterable<CompanyEntity> findAllEntities() {
-        return companyProfileDaoJpa.findAll();
+        return companyProfileDao.findAll();
     }
 
     @Transactional
@@ -85,18 +85,18 @@ public class CompanyProfileServiceImpl implements CompanyProfileService {
         }
         databaseCompanies.addAll(insertCompaniesMap.values());
 
-        companyProfileDaoJpa.saveAll(databaseCompanies);
-        companyProfileDaoJpa.deleteAll(databaseCompaniesMap.values());
+        companyProfileDao.saveAll(databaseCompanies);
+        companyProfileDao.deleteAll(databaseCompaniesMap.values());
     }
 
     @Transactional
     @Override
     public void save(Iterable<CompanyEntity> companies) {
-        companyProfileDaoJpa.saveAll(companies);
+        companyProfileDao.saveAll(companies);
     }
 
     @Transactional
     public Collection<String> findAllByDisplaySymbol() {
-        return companyProfileDaoJpa.getAllSymbols();
+        return companyProfileDao.getAllSymbols();
     }
 }

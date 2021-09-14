@@ -1,6 +1,10 @@
 package com.example.anton_stock_feed.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "company_profile")
@@ -14,6 +18,18 @@ public class CompanyEntity {
     private String mic;
     private String symbol;
     private String type;
+
+    @OneToMany(mappedBy = "companyEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Collection<ReportEntity> reportEntities = new ArrayList<>();
+
+    public Collection<ReportEntity> getReportEntities() {
+        return reportEntities;
+    }
+
+    public void setReportEntities(Collection<ReportEntity> reportEntities) {
+        this.reportEntities = reportEntities;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,14 +114,16 @@ public class CompanyEntity {
 
     @Override
     public String toString() {
-        return "Company{" +
+        return "CompanyEntity{" +
                 "currency='" + currency + '\'' +
                 ", description='" + description + '\'' +
-                ", displaysymbol='" + displaySymbol + '\'' +
+                ", displaySymbol='" + displaySymbol + '\'' +
                 ", figi='" + figi + '\'' +
                 ", mic='" + mic + '\'' +
                 ", symbol='" + symbol + '\'' +
                 ", type='" + type + '\'' +
+                ", reportEntities=" + reportEntities +
+                ", id=" + id +
                 '}';
     }
 

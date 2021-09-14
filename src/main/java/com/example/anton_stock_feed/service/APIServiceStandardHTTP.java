@@ -2,8 +2,6 @@ package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.exceptions.APIServiceException;
-import com.example.anton_stock_feed.entity.CompanyEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.net.URI;
@@ -24,7 +22,7 @@ public class APIServiceStandardHTTP implements APIService {
     }
 
     @Override
-    public void getInfo() {
+    public void getCompanyProfile() {
         String uri = "https://finnhub.io/api/v1/stock/symbol?exchange=US&mic=XNYS&token=c30vv6aad3idae6u5770";
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -44,7 +42,12 @@ public class APIServiceStandardHTTP implements APIService {
         companyProfileService.writeData(companies);
     }
 
+    @Override
+    public void getReport() {
+
+    }
+
     public void run() {
-        getInfo();
+        getCompanyProfile();
     }
 }
