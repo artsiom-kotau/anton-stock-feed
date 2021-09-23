@@ -26,12 +26,10 @@ public class ReportEntity {
     private String report;
     private String symbol;
 
-//    @ManyToOne
-//    @JoinColumn(name = "displaysymbol")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "symbol",
-            referencedColumnName = "symbol",
+            referencedColumnName = "displaySymbol",
             insertable = false,
             updatable = false
     )

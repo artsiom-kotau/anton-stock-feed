@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "company_profile")
-public class CompanyEntity {
+public class CompanyEntity implements Serializable {
     private String currency;
     private String description;
 
@@ -23,11 +24,7 @@ public class CompanyEntity {
     private String symbol;
     private String type;
 
-    //@OneToMany(mappedBy = "companyEntity")
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "symbol")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "symbol")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "companyEntity")
     private List<ReportEntity> reports;
 
 //    public List<ReportEntity> getReports() {
