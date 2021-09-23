@@ -1,7 +1,5 @@
 package com.example.anton_stock_feed.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 
 @Entity
@@ -28,22 +26,19 @@ public class ReportEntity {
     private String report;
     private String symbol;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonBackReference
-    @JoinColumn(name = "displaysymbol")
+//    @ManyToOne
+//    @JoinColumn(name = "displaysymbol")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "symbol",
+            referencedColumnName = "symbol",
+            insertable = false,
+            updatable = false
+    )
     private CompanyEntity companyEntity;
 
-    public ReportEntity(String cik,
-                        String accessNumber,
-                        String year,
-                        String quarter,
-                        String form,
-                        String startDate,
-                        String endDate,
-                        String filedDate,
-                        String acceptedDate,
-                        String report,
-                        String symbol) {
+    public ReportEntity(Integer id, String cik, String accessNumber, String year, String quarter, String form, String startDate, String endDate, String filedDate, String acceptedDate, String report, String symbol, CompanyEntity companyEntity) {
+        this.id = id;
         this.cik = cik;
         this.accessNumber = accessNumber;
         this.year = year;
@@ -54,11 +49,27 @@ public class ReportEntity {
         this.filedDate = filedDate;
         this.acceptedDate = acceptedDate;
         this.report = report;
-        this.symbol = symbol;
+        //this.companyEntity = companyEntity;
     }
 
     public ReportEntity() {
 
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public CompanyEntity getCompanyEntity() {
+        return companyEntity;
+    }
+
+    public void setCompanyEntity(CompanyEntity companyEntity) {
+        this.companyEntity = companyEntity;
     }
 
     public Integer getId() {
@@ -149,13 +160,14 @@ public class ReportEntity {
         this.report = report;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
+//    public CompanyEntity getCompanyEntity() {
+//        return companyEntity;
+//    }
+//
+//    public void setCompanyEntity(CompanyEntity companyEntity) {
+//        this.companyEntity = companyEntity;
+//    }
 
     @Override
     public String toString() {
@@ -171,8 +183,6 @@ public class ReportEntity {
                 ", filedDate='" + filedDate + '\'' +
                 ", acceptedDate='" + acceptedDate + '\'' +
                 ", report='" + report + '\'' +
-                ", symbol='" + symbol + '\'' +
-                ", companyEntity=" + companyEntity +
                 '}';
     }
 }

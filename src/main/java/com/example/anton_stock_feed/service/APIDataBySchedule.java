@@ -13,10 +13,10 @@ public class APIDataBySchedule {
         this.apiService = apiService;
     }
 
-    @Scheduled(fixedDelay = 10000000L)
-    public void getReport() {
-        apiService.getReport();
-    }
+//    @Scheduled(fixedDelay = 10000000L)
+//    public void getReport() {
+//        apiService.getReport();
+//    }
 
     @Scheduled(fixedDelay = 10000L)
     public void writeApiData() {

@@ -12,34 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("api/company")
-public class CompanyProfileController {
+@RequestMapping("api/report")
+public class ReportController {
     CompanyProfileService companyProfileService;
     ReportService reportService;
 
-    public CompanyProfileController(CompanyProfileService companyProfileService,
+    public ReportController(CompanyProfileService companyProfileService,
                                     ReportService reportService) {
         this.companyProfileService = companyProfileService;
         this.reportService = reportService;
     }
 
-    @GetMapping
-    public String list() {
-        return "Enter company";
-    }
-
-    @GetMapping("{/all}")
-    public Iterable<CompanyDto> getAllCompanies() {
-        return companyProfileService.findAll();
-    }
-
     @GetMapping("{companyName}")
-    public CompanyDto getCompany(@PathVariable String companyName) {
-        return companyProfileService.findByDisplaySymbol(companyName);
+    public Collection<ReportEntity> getCompany(@PathVariable String companyName) {
+        return reportService.findBySymbol(companyName);
     }
-//
-//    public Collection<ReportEntity> getCompany(@PathVariable String companyName) {
-//        return reportService.findBySymbol(companyName);
-//    }
-
 }

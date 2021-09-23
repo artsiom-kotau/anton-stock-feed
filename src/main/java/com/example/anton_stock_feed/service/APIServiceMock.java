@@ -2,7 +2,6 @@ package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.entity.ReportEntity;
-import com.example.anton_stock_feed.entity.ReportEntityTemp;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -588,7 +587,7 @@ public class APIServiceMock implements APIService {
 
 
 
-        ArrayList<ReportEntity> reports = (ArrayList<ReportEntity>) jsonSerialize.deserializeToCollection(reportApple2020, ReportEntityTemp.class);
+        ArrayList<ReportEntity> reports = (ArrayList<ReportEntity>) jsonSerialize.deserializeToCollection(reportApple2020, ReportEntity.class);
         System.out.println(reports.get(0));
 
 

@@ -1,10 +1,13 @@
 package com.example.anton_stock_feed.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "company_profile")
@@ -13,23 +16,27 @@ public class CompanyEntity {
     private String description;
 
     @Column(name = "displaysymbol")
+    @NaturalId
     private String displaySymbol;
     private String figi;
     private String mic;
     private String symbol;
     private String type;
 
-    @OneToMany(mappedBy = "companyEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Collection<ReportEntity> reportEntities = new ArrayList<>();
+    //@OneToMany(mappedBy = "companyEntity")
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "symbol")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "symbol")
+    private List<ReportEntity> reports;
 
-    public Collection<ReportEntity> getReportEntities() {
-        return reportEntities;
-    }
-
-    public void setReportEntities(Collection<ReportEntity> reportEntities) {
-        this.reportEntities = reportEntities;
-    }
+//    public List<ReportEntity> getReports() {
+//        return reports;
+//    }
+//
+//    public void setReports(List<ReportEntity> reports) {
+//        this.reports = reports;
+//    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -122,7 +129,6 @@ public class CompanyEntity {
                 ", mic='" + mic + '\'' +
                 ", symbol='" + symbol + '\'' +
                 ", type='" + type + '\'' +
-                ", reportEntities=" + reportEntities +
                 ", id=" + id +
                 '}';
     }
