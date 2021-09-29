@@ -1,6 +1,7 @@
 package com.example.anton_stock_feed.controller;
 
 import com.example.anton_stock_feed.dto.CompanyDto;
+import com.example.anton_stock_feed.dto.ReportDto;
 import com.example.anton_stock_feed.entity.ReportEntity;
 import com.example.anton_stock_feed.service.CompanyProfileService;
 import com.example.anton_stock_feed.service.ReportService;
@@ -24,7 +25,8 @@ public class ReportController {
     }
 
     @GetMapping("{companyName}")
-    public Collection<ReportEntity> getCompany(@PathVariable String companyName) {
+    public Iterable<ReportDto> getCompany(@PathVariable String companyName) {
         return reportService.findBySymbol(companyName);
     }
+
 }

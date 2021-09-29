@@ -37,9 +37,4 @@ public class CompanyProfileController {
     public CompanyDto getCompany(@PathVariable String companyName) {
         return companyProfileService.findByDisplaySymbol(companyName);
     }
-//
-//    public Collection<ReportEntity> getCompany(@PathVariable String companyName) {
-//        return reportService.findBySymbol(companyName);
-//    }
-
 }
