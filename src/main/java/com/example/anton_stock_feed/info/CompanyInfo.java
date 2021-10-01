@@ -1,7 +1,5 @@
-package com.example.anton_stock_feed.dto;
+package com.example.anton_stock_feed.info;
 
-import com.example.anton_stock_feed.info.CompanyInfo;
-import com.example.anton_stock_feed.info.ReportInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CompanyDto {
+public class CompanyInfo {
 
         private String currency;
         private String description;
@@ -19,5 +17,4 @@ public class CompanyDto {
         private String symbol;
         private String type;
         private Integer id;
-        private ReportInfo reportInfo;
 }

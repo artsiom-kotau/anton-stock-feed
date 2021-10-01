@@ -1,0 +1,24 @@
+package com.example.anton_stock_feed.info;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class ReportInfo {
+
+        private Integer id;
+        private String cik;
+        private String accessNumber;
+        private String year;
+        private String quarter;
+        private String form;
+        private String startDate;
+        private String endDate;
+        private String filedDate;
+        private String acceptedDate;
+        private String report;
+        private String symbol;
+}

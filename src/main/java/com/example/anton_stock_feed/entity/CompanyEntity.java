@@ -1,5 +1,6 @@
 package com.example.anton_stock_feed.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
@@ -29,6 +30,8 @@ public class CompanyEntity implements Serializable {
     private String symbol;
     private String type;
 
+    @JsonIgnoreProperties("companyEntity")
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "companyEntity")
     private List<ReportEntity> reports;
 }
