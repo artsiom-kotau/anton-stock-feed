@@ -5,9 +5,11 @@ import com.example.anton_stock_feed.dao.ReportDao;
 import com.example.anton_stock_feed.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+//@ComponentScan({"com"})
 public class SpringConfig {
 
     @Value("${APIService}")
@@ -25,8 +27,9 @@ public class SpringConfig {
     }
 
     @Bean
-    public ReportService reportService(ReportDao reportDao) {
-        return new ReportServiceImpl(reportDao);
+    public ReportService reportService(ReportDao reportDao,
+                                       ReportMapper reportMapper) {
+        return new ReportServiceImpl(reportDao, reportMapper);
     }
 
     @Bean

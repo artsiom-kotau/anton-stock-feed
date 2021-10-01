@@ -1,5 +1,13 @@
 package com.example.anton_stock_feed.dto;
 
+import com.example.anton_stock_feed.entity.CompanyEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class ReportDto {
 
     private Integer id;
@@ -14,4 +22,5 @@ public class ReportDto {
     private String acceptedDate;
     private String report;
     private String symbol;
+    private CompanyEntity companyEntity;
 }

@@ -11,30 +11,18 @@ public class ReportServiceImpl implements ReportService{
     ReportDao reportDao;
     ReportMapper reportMapper;
 
-    public ReportServiceImpl(ReportDao reportDao) {
+    public ReportServiceImpl(ReportDao reportDao, ReportMapper reportMapper) {
         this.reportDao = reportDao;
+        this.reportMapper = reportMapper;
     }
 
     @Transactional
     @Override
     public Iterable<ReportDto> findBySymbol(String symbol) {
         Collection<ReportEntity> reportEntities = reportDao.findReportEntitiesBySymbol(symbol);
-        Iterable<ReportDto> reportDtos = reportMapper.companiesToCompanyDtos(reportEntities);      //map(reportMapper::toDto).orElse(null);
+        Iterable<ReportDto> reportDtos = reportMapper.reportsToReportDtos(reportEntities);      //map(reportMapper::toDto).orElse(null);
         return reportDtos;
     }
-
-//    @Transactional
-//    @Override
-//    public Collection<ReportEntity> findBySymbol(String symbol) {
-//        return reportDao.findReportEntitiesBySymbol(symbol);
-//    }
-
-    //    @Transactional
-//    @Override
-//    public CompanyDto findByDisplaySymbol(String displaySymbol) {
-//        Optional<CompanyEntity> company = companyProfileDao.findAllByDisplaySymbol(displaySymbol);
-//        return company.map(companyMapper::toDto).orElse(null);
-//    }
 
     @Override
     public void save(Iterable<ReportEntity> apiReports) {

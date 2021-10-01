@@ -29,8 +29,6 @@ public class CompanyEntity implements Serializable {
     private String symbol;
     private String type;
 
-    @Getter(AccessLevel.NONE) //delete
-    @Setter(AccessLevel.NONE) //delete
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "companyEntity")
     private List<ReportEntity> reports;
 }
