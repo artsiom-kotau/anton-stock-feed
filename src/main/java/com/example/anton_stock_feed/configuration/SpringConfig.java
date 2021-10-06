@@ -1,15 +1,17 @@
 package com.example.anton_stock_feed.configuration;
 
+import com.example.anton_stock_feed.dao.BasicFinancialsDao;
 import com.example.anton_stock_feed.dao.CompanyProfileDao;
 import com.example.anton_stock_feed.dao.ReportDao;
+import com.example.anton_stock_feed.mappers.BasicFinancialsMapper;
+import com.example.anton_stock_feed.mappers.CompanyMapper;
+import com.example.anton_stock_feed.mappers.ReportMapper;
 import com.example.anton_stock_feed.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-//@ComponentScan({"com"})
 public class SpringConfig {
 
     @Value("${APIService}")
@@ -30,6 +32,12 @@ public class SpringConfig {
     public ReportService reportService(ReportDao reportDao,
                                        ReportMapper reportMapper) {
         return new ReportServiceImpl(reportDao, reportMapper);
+    }
+
+    @Bean
+    public BasicFinancialsService basicFinancialsService(BasicFinancialsDao basicFinancialsDao,
+                                                         BasicFinancialsMapper basicFinancialsMapper) {
+        return new BasicFinancialsServiceImpl(basicFinancialsDao, basicFinancialsMapper);
     }
 
     @Bean

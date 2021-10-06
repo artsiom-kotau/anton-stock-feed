@@ -1,6 +1,6 @@
 package com.example.anton_stock_feed.service;
 
-import com.example.anton_stock_feed.dto.ReportDto;
+import com.example.anton_stock_feed.entity.CompanyDetailsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -10,24 +10,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class APIDataBySchedule {
     APIService apiService;
+
     @Autowired
-    ReportService reportService;
+    CompanyDetailsService companyDetailsService;
 
     public APIDataBySchedule(APIService apiService) {
         this.apiService = apiService;
     }
 
-//    @Scheduled(fixedDelay = 10000000L)
-//    public void getReport() {
-//        apiService.getReport();
-//    }
-
     @Scheduled(fixedDelay = 10000L)
     public void writeApiData() {
-        apiService.getCompanyProfile();
+        //apiService.getCompanyProfile();
 
-        Iterable<ReportDto> reportDtos = reportService.findBySymbol("AAPL");
-        System.out.println(reportDtos);
+        Iterable<CompanyDetailsEntity> companyDetailsEntities = companyDetailsService.findBySymbol("AAPL");
+        System.out.println(companyDetailsEntities);
     }
 
 

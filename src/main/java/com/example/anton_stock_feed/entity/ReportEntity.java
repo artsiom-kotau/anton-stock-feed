@@ -1,9 +1,9 @@
 package com.example.anton_stock_feed.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -34,7 +34,6 @@ public class ReportEntity {
     private String report;
     private String symbol;
 
-    @JsonIgnoreProperties("reports")
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
@@ -43,5 +42,5 @@ public class ReportEntity {
             insertable = false,
             updatable = false
     )
-    private CompanyEntity companyEntity;
+    private CompanyEntity company;
 }

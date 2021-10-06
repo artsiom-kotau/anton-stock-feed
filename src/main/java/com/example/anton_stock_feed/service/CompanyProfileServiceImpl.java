@@ -3,6 +3,7 @@ package com.example.anton_stock_feed.service;
 import com.example.anton_stock_feed.dao.CompanyProfileDao;
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.entity.CompanyEntity;
+import com.example.anton_stock_feed.mappers.CompanyMapper;
 
 import javax.transaction.Transactional;
 import java.util.*;

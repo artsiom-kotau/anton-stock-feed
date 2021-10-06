@@ -1,11 +1,14 @@
 package com.example.anton_stock_feed.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -30,8 +33,29 @@ public class CompanyEntity implements Serializable {
     private String symbol;
     private String type;
 
-    @JsonIgnoreProperties("companyEntity")
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "companyEntity")
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "company")
     private List<ReportEntity> reports;
+
+    @ToString.Exclude
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "company")
+    private BasicFinancialsEntity basicFinancialsEntity;
+
+    @ToString.Exclude
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    @JoinTable(
+            name = "company_details_company",
+            joinColumns = @JoinColumn(name = "company_id"),
+            inverseJoinColumns = @JoinColumn(name = "company_details_id")
+    )
+    private Collection<CompanyDetailsEntity> companyDetailsEntity;
 }

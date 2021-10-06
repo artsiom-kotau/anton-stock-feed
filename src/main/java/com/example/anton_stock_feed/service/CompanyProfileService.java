@@ -3,8 +3,6 @@ package com.example.anton_stock_feed.service;
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.entity.CompanyEntity;
 
-import java.util.Optional;
-
 public interface CompanyProfileService {
 
     CompanyDto findById(Integer id);
