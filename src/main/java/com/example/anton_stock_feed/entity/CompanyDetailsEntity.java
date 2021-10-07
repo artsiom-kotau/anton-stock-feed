@@ -42,6 +42,6 @@ public class CompanyDetailsEntity implements Serializable {
     private String webUrl;
 
     @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "companyDetailsEntity")
-    private Collection<CompanyEntity> company;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "companyDetails")
+    private Collection<CompanyEntity> companyProfile;
 }

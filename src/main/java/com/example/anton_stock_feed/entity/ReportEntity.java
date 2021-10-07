@@ -43,4 +43,18 @@ public class ReportEntity {
             updatable = false
     )
     private CompanyEntity company;
+
+    public ReportEntity(String cik, String accessNumber, String year, String quarter, String form, String startDate, String endDate, String filedDate, String acceptedDate, String report, String symbol) {
+        this.cik = cik;
+        this.accessNumber = accessNumber;
+        this.year = year;
+        this.quarter = quarter;
+        this.form = form;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.filedDate = filedDate;
+        this.acceptedDate = acceptedDate;
+        this.report = report;
+        this.symbol = symbol;
+    }
 }

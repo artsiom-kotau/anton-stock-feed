@@ -4,8 +4,8 @@ import com.example.anton_stock_feed.dao.CompanyProfileDao;
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.entity.CompanyEntity;
 import com.example.anton_stock_feed.mappers.CompanyMapper;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.*;
 
 public class CompanyProfileServiceImpl implements CompanyProfileService {
@@ -64,8 +64,7 @@ public class CompanyProfileServiceImpl implements CompanyProfileService {
             if (databaseCompaniesMap.containsKey(companySymbol)) {
                 updateCompaniesMap.put(companySymbol, companyMapper.toEntity(companyDto));
                 insertUpdateCompaniesMap.put(companySymbol, companyMapper.toEntity(companyDto));
-            }
-            else {
+            } else {
                 insertCompaniesMap.put(companySymbol, companyMapper.toEntity(companyDto));
                 insertUpdateCompaniesMap.put(companySymbol, companyMapper.toEntity(companyDto));
             }

@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 @Entity
 @Table(name = "basic_financials")
 public class BasicFinancialsEntity implements Serializable {

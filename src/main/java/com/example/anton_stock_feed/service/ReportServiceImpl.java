@@ -4,11 +4,11 @@ import com.example.anton_stock_feed.dao.ReportDao;
 import com.example.anton_stock_feed.dto.ReportDto;
 import com.example.anton_stock_feed.entity.ReportEntity;
 import com.example.anton_stock_feed.mappers.ReportMapper;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 
-public class ReportServiceImpl implements ReportService{
+public class ReportServiceImpl implements ReportService {
     ReportDao reportDao;
     ReportMapper reportMapper;
 
@@ -26,7 +26,13 @@ public class ReportServiceImpl implements ReportService{
     }
 
     @Override
-    public void save(Iterable<ReportEntity> apiReports) {
+    public void saveAll(Iterable<ReportEntity> apiReports) {
         reportDao.saveAll(apiReports);
     }
+
+    @Override
+    public <S extends ReportEntity> S save(S entity) {
+        return reportDao.save(entity);
+    }
+
 }

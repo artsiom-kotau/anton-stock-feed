@@ -7,5 +7,7 @@ public interface ReportService {
 
     Iterable<ReportDto> findBySymbol(String symbol);
 
-    void save(Iterable<ReportEntity> apiReports);
+    void saveAll(Iterable<ReportEntity> apiReports);
+
+    <S extends ReportEntity> S save(S entity);
 }

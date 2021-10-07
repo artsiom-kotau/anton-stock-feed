@@ -50,12 +50,12 @@ public class CompanyEntity implements Serializable {
     @ToString.Exclude
     @ManyToMany(
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
     @JoinTable(
             name = "company_details_company",
             joinColumns = @JoinColumn(name = "company_id"),
             inverseJoinColumns = @JoinColumn(name = "company_details_id")
     )
-    private Collection<CompanyDetailsEntity> companyDetailsEntity;
+    private Collection<CompanyDetailsEntity> companyDetails;
 }

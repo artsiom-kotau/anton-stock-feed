@@ -584,17 +584,8 @@ public class APIServiceMock implements APIService {
                 "}";
 
 
-
-
-
         ArrayList<ReportEntity> reports = (ArrayList<ReportEntity>) jsonSerialize.deserializeToCollection(reportApple2020, ReportEntity.class);
         System.out.println(reports.get(0));
-
-
-
-
-
-
 
 
     }

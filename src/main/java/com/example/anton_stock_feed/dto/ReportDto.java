@@ -1,12 +1,12 @@
 package com.example.anton_stock_feed.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class ReportDto {
 
     private Integer id;
@@ -21,4 +21,18 @@ public class ReportDto {
     private String acceptedDate;
     private String report;
     private String symbol;
+
+    public ReportDto(String cik, String accessNumber, String year, String quarter, String form, String startDate, String endDate, String filedDate, String acceptedDate, String report, String symbol) {
+        this.cik = cik;
+        this.accessNumber = accessNumber;
+        this.year = year;
+        this.quarter = quarter;
+        this.form = form;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.filedDate = filedDate;
+        this.acceptedDate = acceptedDate;
+        this.report = report;
+        this.symbol = symbol;
+    }
 }
