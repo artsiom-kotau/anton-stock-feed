@@ -91,8 +91,14 @@ public class CompanyProfileServiceImpl implements CompanyProfileService {
 
     @Transactional
     @Override
-    public void save(Iterable<CompanyEntity> companies) {
+    public void saveAll(Iterable<CompanyEntity> companies) {
         companyProfileDao.saveAll(companies);
+    }
+
+    @Transactional
+    @Override
+    public <S extends CompanyEntity> S save(S entity) {
+        return companyProfileDao.save(entity);
     }
 
     @Transactional

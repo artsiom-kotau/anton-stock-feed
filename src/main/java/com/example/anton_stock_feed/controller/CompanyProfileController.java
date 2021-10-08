@@ -28,8 +28,4 @@ public class CompanyProfileController {
         return companyProfileService.findByDisplaySymbol(companyName);
     }
 
-    @PostMapping
-    public @ResponseBody String addReports(@RequestParam String report) {
-        return report;
-    }
 }

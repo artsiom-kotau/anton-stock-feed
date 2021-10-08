@@ -25,11 +25,13 @@ public class ReportServiceImpl implements ReportService {
         return reportDtos;
     }
 
+    @Transactional
     @Override
     public void saveAll(Iterable<ReportEntity> apiReports) {
         reportDao.saveAll(apiReports);
     }
 
+    @Transactional
     @Override
     public <S extends ReportEntity> S save(S entity) {
         return reportDao.save(entity);

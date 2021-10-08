@@ -11,7 +11,9 @@ public interface CompanyProfileService {
 
     Iterable<CompanyDto> findAll();
 
-    void save(Iterable<CompanyEntity> companies);
+    void saveAll(Iterable<CompanyEntity> companies);
 
     void writeData(Iterable<CompanyDto> apiCompanies);
+
+    <S extends CompanyEntity> S save(S entity);
 }

@@ -21,6 +21,5 @@ public class CompanyDto {
         private Integer id;
 
         private List<ReportDto> reports;
-
-        //private Collection<CompanyDetailsDto> companyDetails;
+//        private BasicFinancialsDto basicFinancialsDto;
 }
