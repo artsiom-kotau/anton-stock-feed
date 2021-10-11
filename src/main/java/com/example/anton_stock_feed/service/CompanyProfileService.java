@@ -9,6 +9,8 @@ public interface CompanyProfileService {
 
     CompanyDto findByDisplaySymbol(String displaySymbol);
 
+    CompanyEntity findCompanyEntityByDisplaySymbol(String displaySymbol);
+
     Iterable<CompanyDto> findAll();
 
     void saveAll(Iterable<CompanyEntity> companies);

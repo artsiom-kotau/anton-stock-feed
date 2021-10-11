@@ -12,8 +12,14 @@ import com.example.anton_stock_feed.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
+@EnableSwagger2
 public class SpringConfig {
 
     @Value("${APIService}")
@@ -32,8 +38,9 @@ public class SpringConfig {
 
     @Bean
     public ReportService reportService(ReportDao reportDao,
-                                       ReportMapper reportMapper) {
-        return new ReportServiceImpl(reportDao, reportMapper);
+                                       ReportMapper reportMapper,
+                                       CompanyProfileService companyProfileService) {
+        return new ReportServiceImpl(reportDao, reportMapper, companyProfileService);
     }
 
     @Bean
@@ -54,5 +61,14 @@ public class SpringConfig {
         return new APIServiceFactory().createAPIService(apiServiceType,
                 companyProfileService(companyProfileDao, companyMapper),
                 jsonSerialize());
+    }
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
     }
 }

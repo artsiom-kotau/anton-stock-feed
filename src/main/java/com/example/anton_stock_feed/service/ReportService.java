@@ -10,4 +10,7 @@ public interface ReportService {
     void saveAll(Iterable<ReportEntity> apiReports);
 
     <S extends ReportEntity> S save(S entity);
+
+    void addReport(ReportDto reportDto, String symbol);
+
 }

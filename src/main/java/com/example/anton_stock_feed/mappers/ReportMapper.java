@@ -14,4 +14,5 @@ public interface ReportMapper {
     ReportEntity toEntity(ReportDto reportDto);
 
     Iterable<ReportEntity> dtosToReportEntities(Iterable<ReportDto> reportDtos);
+
 }

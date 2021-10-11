@@ -34,6 +34,13 @@ public class CompanyProfileServiceImpl implements CompanyProfileService {
 
     @Transactional
     @Override
+    public CompanyEntity findCompanyEntityByDisplaySymbol(String displaySymbol) {
+        Optional<CompanyEntity> company = companyProfileDao.findAllByDisplaySymbol(displaySymbol);
+        return company.orElse(null);
+    }
+
+    @Transactional
+    @Override
     public Iterable<CompanyDto> findAll() {
         Iterable<CompanyEntity> companies = companyProfileDao.findAll();
         return companyMapper.companiesToCompanyDtos(companies);
