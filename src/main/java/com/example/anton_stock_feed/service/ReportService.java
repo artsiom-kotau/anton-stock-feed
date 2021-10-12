@@ -15,10 +15,10 @@ public interface ReportService {
 
     <S extends ReportEntity> S save(S entity);
 
-    void addReport(ReportDto reportDto, String symbol);
+    ReportDto addReport(ReportDto reportDto, String symbol);
 
     void deleteReport(Integer id);
 
-    void updateReport(ReportDto reportDto, Integer id);
+    ReportDto updateReport(ReportDto reportDto, Integer id);
 
 }

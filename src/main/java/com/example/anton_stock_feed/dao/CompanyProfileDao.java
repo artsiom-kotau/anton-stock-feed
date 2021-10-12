@@ -9,7 +9,9 @@ import java.util.Optional;
 
 public interface CompanyProfileDao extends CrudRepository<CompanyEntity, Integer> {
 
-    Optional<CompanyEntity> findAllByDisplaySymbol(String displaySymbol);
+    Optional<CompanyEntity> findByDisplaySymbol(String displaySymbol);
+
+    Iterable<CompanyEntity> findAllByDisplaySymbol(String displaySymbol);
 
     @Query(value = "SELECT symbol FROM company_profile", nativeQuery = true)
     Collection<String> getAllSymbols();

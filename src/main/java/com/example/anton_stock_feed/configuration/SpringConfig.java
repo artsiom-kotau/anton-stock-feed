@@ -51,8 +51,9 @@ public class SpringConfig {
 
     @Bean
     public CompanyDetailsService companyDetailsService(CompanyDetailsDao companyDetailsDao,
-                                                       CompanyDetailsMapper companyDetailsMapper) {
-        return new CompanyDetailsServiceImpl(companyDetailsDao, companyDetailsMapper);
+                                                       CompanyDetailsMapper companyDetailsMapper,
+                                                       CompanyProfileService companyProfileService) {
+        return new CompanyDetailsServiceImpl(companyDetailsDao, companyDetailsMapper, companyProfileService);
     }
 
     @Bean

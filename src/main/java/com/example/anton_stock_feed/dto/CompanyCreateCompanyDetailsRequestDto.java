@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class CompanyDto {
+public class CompanyCreateCompanyDetailsRequestDto {
 
     private String currency;
     private String description;
@@ -17,4 +19,6 @@ public class CompanyDto {
     private String symbol;
     private String type;
     private Integer id;
+    private List<CompanyDetailsDto> companyDetailsDtos;
+
 }

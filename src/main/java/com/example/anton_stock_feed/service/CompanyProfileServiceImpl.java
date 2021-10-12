@@ -1,6 +1,7 @@
 package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.dao.CompanyProfileDao;
+import com.example.anton_stock_feed.dto.CompanyCreateCompanyDetailsRequestDto;
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.entity.CompanyEntity;
 import com.example.anton_stock_feed.mappers.CompanyMapper;
@@ -28,14 +29,30 @@ public class CompanyProfileServiceImpl implements CompanyProfileService {
     @Transactional
     @Override
     public CompanyDto findByDisplaySymbol(String displaySymbol) {
-        Optional<CompanyEntity> company = companyProfileDao.findAllByDisplaySymbol(displaySymbol);
+        Optional<CompanyEntity> company = companyProfileDao.findByDisplaySymbol(displaySymbol);
         return company.map(companyMapper::toDto).orElse(null);
     }
 
     @Transactional
     @Override
+    public Iterable<CompanyCreateCompanyDetailsRequestDto> findCCCDRDtosByDisplaySymbol(String displaySymbol) {
+        Iterable<CompanyEntity> companyEntities = companyProfileDao.findAllByDisplaySymbol(displaySymbol);
+        Iterable<CompanyCreateCompanyDetailsRequestDto> companyCreateCompanyDetailsRequestDtos =
+                companyMapper.companiesToCCCDRDtos(companyEntities);
+        return companyCreateCompanyDetailsRequestDtos;
+    }
+
+    @Transactional
+    @Override
+    public CompanyCreateCompanyDetailsRequestDto findCCCDRDtoByDisplaySymbol(String displaySymbol) {
+        Optional<CompanyEntity> companyEntity = companyProfileDao.findByDisplaySymbol(displaySymbol);
+        return companyEntity.map(companyMapper::toCCCDRDto).orElse(null);
+    }
+
+    @Transactional
+    @Override
     public CompanyEntity findCompanyEntityByDisplaySymbol(String displaySymbol) {
-        Optional<CompanyEntity> company = companyProfileDao.findAllByDisplaySymbol(displaySymbol);
+        Optional<CompanyEntity> company = companyProfileDao.findByDisplaySymbol(displaySymbol);
         return company.orElse(null);
     }
 

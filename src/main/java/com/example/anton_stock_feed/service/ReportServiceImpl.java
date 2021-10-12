@@ -60,11 +60,11 @@ public class ReportServiceImpl implements ReportService {
 
     @Transactional
     @Override
-    public void addReport(ReportDto reportDto, String symbol) {
+    public ReportDto addReport(ReportDto reportDto, String symbol) {
         CompanyEntity companyEntity = companyProfileService.findCompanyEntityByDisplaySymbol(symbol);
         ReportEntity reportEntity = reportMapper.toEntity(reportDto);
         reportEntity.setCompany(companyEntity);
-        reportDao.save(reportEntity);
+        return reportMapper.toDto(reportDao.save(reportEntity));
     }
 
     @Transactional
@@ -77,10 +77,12 @@ public class ReportServiceImpl implements ReportService {
 
     @Transactional
     @Override
-    public void updateReport(ReportDto reportDto, Integer id) {
+    public ReportDto updateReport(ReportDto reportDto, Integer id) {
+        ReportEntity reportEntity = null;
         if (reportDao.existsById(id)) {
             reportDto.setId(id);
-            reportDao.save(reportMapper.toEntity(reportDto));
+            reportEntity = reportDao.save(reportMapper.toEntity(reportDto));
         }
+        return reportMapper.toDto(reportEntity);
     }
 }
