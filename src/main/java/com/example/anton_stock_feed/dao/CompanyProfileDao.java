@@ -14,5 +14,4 @@ public interface CompanyProfileDao extends CrudRepository<CompanyEntity, Integer
     @Query(value = "SELECT symbol FROM company_profile", nativeQuery = true)
     Collection<String> getAllSymbols();
 
-
 }

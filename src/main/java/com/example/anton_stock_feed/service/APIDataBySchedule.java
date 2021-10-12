@@ -1,5 +1,7 @@
 package com.example.anton_stock_feed.service;
 
+import com.example.anton_stock_feed.dao.ReportDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class APIDataBySchedule {
     APIService apiService;
+    @Autowired
+    ReportDao reportDao;
 
     public APIDataBySchedule(APIService apiService) {
         this.apiService = apiService;
