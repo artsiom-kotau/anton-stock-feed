@@ -1,7 +1,7 @@
 package com.example.anton_stock_feed.service;
 
 import com.example.anton_stock_feed.dao.CompanyProfileDao;
-import com.example.anton_stock_feed.dto.CompanyCreateCompanyDetailsRequestDto;
+import com.example.anton_stock_feed.dto.CompanyWithCreateCompanyDetailsRequestDto;
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.entity.CompanyEntity;
 import com.example.anton_stock_feed.mappers.CompanyMapper;
@@ -35,18 +35,20 @@ public class CompanyProfileServiceImpl implements CompanyProfileService {
 
     @Transactional
     @Override
-    public Iterable<CompanyCreateCompanyDetailsRequestDto> findCCCDRDtosByDisplaySymbol(String displaySymbol) {
+    public Iterable<CompanyWithCreateCompanyDetailsRequestDto> findCompanyWithCreateCompanyDetailsRequestDtosByDisplaySymbol(
+            String displaySymbol) {
         Iterable<CompanyEntity> companyEntities = companyProfileDao.findAllByDisplaySymbol(displaySymbol);
-        Iterable<CompanyCreateCompanyDetailsRequestDto> companyCreateCompanyDetailsRequestDtos =
-                companyMapper.companiesToCCCDRDtos(companyEntities);
+        Iterable<CompanyWithCreateCompanyDetailsRequestDto> companyCreateCompanyDetailsRequestDtos =
+                companyMapper.companiesToCompanyWithCreateCompanyDetailsRequestDtos(companyEntities);
         return companyCreateCompanyDetailsRequestDtos;
     }
 
     @Transactional
     @Override
-    public CompanyCreateCompanyDetailsRequestDto findCCCDRDtoByDisplaySymbol(String displaySymbol) {
+    public CompanyWithCreateCompanyDetailsRequestDto findCompanyWithCreateCompanyDetailsRequestDtoByDisplaySymbol(
+            String displaySymbol) {
         Optional<CompanyEntity> companyEntity = companyProfileDao.findByDisplaySymbol(displaySymbol);
-        return companyEntity.map(companyMapper::toCCCDRDto).orElse(null);
+        return companyEntity.map(companyMapper::toCompanyWithCreateCompanyDetailsRequestDto).orElse(null);
     }
 
     @Transactional
@@ -128,5 +130,14 @@ public class CompanyProfileServiceImpl implements CompanyProfileService {
     @Transactional
     public Collection<String> findAllByDisplaySymbol() {
         return companyProfileDao.getAllSymbols();
+    }
+
+    @Transactional
+    @Override
+    public CompanyWithCreateCompanyDetailsRequestDto saveCompanyWithCreateCompanyDetailsRequestDto(
+            CompanyWithCreateCompanyDetailsRequestDto companyWithCreateCompanyDetailsRequestDto) {
+        CompanyEntity companyEntity = companyMapper.toEntity(companyWithCreateCompanyDetailsRequestDto);
+        companyEntity = companyProfileDao.save(companyEntity);
+        return companyMapper.toCompanyWithCreateCompanyDetailsRequestDto(companyEntity);
     }
 }

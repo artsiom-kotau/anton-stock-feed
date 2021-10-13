@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CompanyCreateCompanyDetailsRequestDto {
+public class CompanyWithCreateCompanyDetailsRequestDto {
 
     private String currency;
     private String description;
@@ -19,6 +19,6 @@ public class CompanyCreateCompanyDetailsRequestDto {
     private String symbol;
     private String type;
     private Integer id;
-    private List<CompanyDetailsDto> companyDetailsDtos;
+    private List<CreateCompanyDetailsRequestDto> companyDetails;
 
 }

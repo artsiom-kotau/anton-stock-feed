@@ -8,4 +8,5 @@ import java.util.Collection;
 public interface CompanyDetailsDao extends CrudRepository<CompanyDetailsEntity, Integer> {
 
     Collection<CompanyDetailsEntity> findCompanyDetailsEntitiesBySymbol(String symbol);
+
 }

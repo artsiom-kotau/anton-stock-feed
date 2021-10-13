@@ -1,6 +1,6 @@
 package com.example.anton_stock_feed.service;
 
-import com.example.anton_stock_feed.dto.CompanyCreateCompanyDetailsRequestDto;
+import com.example.anton_stock_feed.dto.CompanyWithCreateCompanyDetailsRequestDto;
 import com.example.anton_stock_feed.dto.CompanyDto;
 import com.example.anton_stock_feed.entity.CompanyEntity;
 
@@ -10,9 +10,11 @@ public interface CompanyProfileService {
 
     CompanyDto findByDisplaySymbol(String displaySymbol);
 
-    Iterable<CompanyCreateCompanyDetailsRequestDto> findCCCDRDtosByDisplaySymbol(String displaySymbol);
+    Iterable<CompanyWithCreateCompanyDetailsRequestDto> findCompanyWithCreateCompanyDetailsRequestDtosByDisplaySymbol(
+            String displaySymbol);
 
-    CompanyCreateCompanyDetailsRequestDto findCCCDRDtoByDisplaySymbol(String displaySymbol);
+    CompanyWithCreateCompanyDetailsRequestDto findCompanyWithCreateCompanyDetailsRequestDtoByDisplaySymbol(
+            String displaySymbol);
 
     CompanyEntity findCompanyEntityByDisplaySymbol(String displaySymbol);
 
@@ -23,4 +25,7 @@ public interface CompanyProfileService {
     void writeData(Iterable<CompanyDto> apiCompanies);
 
     <S extends CompanyEntity> S save(S entity);
+
+    CompanyWithCreateCompanyDetailsRequestDto saveCompanyWithCreateCompanyDetailsRequestDto(
+            CompanyWithCreateCompanyDetailsRequestDto companyWithCreateCompanyDetailsRequestDto);
 }
