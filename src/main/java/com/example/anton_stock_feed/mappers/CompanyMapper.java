@@ -26,7 +26,7 @@ public interface CompanyMapper {
 
     CompanyEntity toEntity(CompanyWithCreateCompanyDetailsRequestDto companyWithCreateCompanyDetailsRequestDto);
 
-    Iterable<CompanyEntity> CompanyWithCreateCompanyDetailsRequestDtosToCompanyEntities(
+    Iterable<CompanyEntity> companyWithCreateCompanyDetailsRequestDtosToCompanyEntities(
             Iterable<CompanyWithCreateCompanyDetailsRequestDto> companyCreateCompanyDetailsRequestDtos);
 
 

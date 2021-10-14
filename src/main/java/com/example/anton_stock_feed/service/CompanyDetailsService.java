@@ -14,4 +14,6 @@ public interface CompanyDetailsService {
     void addCompanyDetailsToOneEntity(CreateCompanyDetailsRequestDto createCompanyDetailsRequestDto,
                                       String symbol);
 
+    void deleteCompanyDetails(Integer id);
+
 }

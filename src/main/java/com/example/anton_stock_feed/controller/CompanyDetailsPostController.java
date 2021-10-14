@@ -22,4 +22,9 @@ public class CompanyDetailsPostController {
         companyDetailsService.addCompanyDetailsToOneEntity(createCompanyDetailsRequestDto, symbol);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCompanyDetails(@PathVariable Integer id) {
+        companyDetailsService.deleteCompanyDetails(id);
+    }
 }

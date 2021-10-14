@@ -7,7 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -43,5 +43,5 @@ public class CompanyDetailsEntity implements Serializable {
 
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "companyDetails")
-    private Collection<CompanyEntity> companyProfile;
+    private Set<CompanyEntity> companyProfile;
 }

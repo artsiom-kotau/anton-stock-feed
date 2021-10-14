@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,6 +19,6 @@ public class CompanyWithCreateCompanyDetailsRequestDto {
     private String symbol;
     private String type;
     private Integer id;
-    private List<CreateCompanyDetailsRequestDto> companyDetails;
+    private Set<CreateCompanyDetailsRequestDto> companyDetails;
 
 }
